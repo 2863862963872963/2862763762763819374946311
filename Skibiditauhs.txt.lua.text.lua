@@ -48,7 +48,7 @@ local a, b = {
                     {54, "ModuleScript", {"Milk Tea"}},
 		    {50, "ModuleScript", {"Dark"}},
 		    {56, "ModuleScript", {"Mika"}},
-		    {57, "ModuleScript", {"Royal"}},
+		    {57, "ModuleScript", {"Royal"}}
                 }
             },
             {
@@ -5492,7 +5492,7 @@ end,
         AcrylicMain = Color3.fromRGB(40, 40, 40),
         AcrylicBorder = Color3.fromRGB(60, 60, 60),
         AcrylicGradient = ColorSequence.new(Color3.fromRGB(30, 30, 30), Color3.fromRGB(30, 30, 30)),
-        AcrylicNoise = 0,
+        AcrylicNoise = 0.5,
         TitleBarLine = Color3.fromRGB(50, 50, 50),
         Tab = Color3.fromRGB(93, 138, 168), -- Lighter shade for tabs
         Element = Color3.fromRGB(90, 90, 90),
