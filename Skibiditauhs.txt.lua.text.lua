@@ -464,7 +464,7 @@ local aa = {
                     j(
                         "ImageLabel",
                         {
-                            Image = "rbxassetid://18573917013",
+                            Image = "rbxassetid://9968344227",
                             ImageTransparency = 0.9,
                             ScaleType = Enum.ScaleType.Stretch,
                             TileSize = UDim2.new(0, 128, 0, 128),
