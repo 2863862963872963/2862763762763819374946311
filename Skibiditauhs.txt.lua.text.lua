@@ -1,16 +1,14 @@
-
 for _, v in ipairs(game.CoreGui:GetChildren()) do
-    if v:IsA("ScreenGui") and v.Name == "Cre : h4uy" then
+    if v:IsA("ScreenGui") and v.Name == "DjtMeMay" then
         v:Destroy()
     end
 end
-
 
 local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 
-ScreenGui.Name = "Cre : h4uy"
+ScreenGui.Name = "DjtMeMay"
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -21,10 +19,15 @@ ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
 ImageButton.Size = UDim2.new(0, 50, 0, 50)
 ImageButton.Draggable = true
 ImageButton.Image = "http://www.roblox.com/asset/?id=18318099219"
+
 ImageButton.MouseButton1Down:Connect(function()
 	game:GetService("VirtualInputManager"):SendKeyEvent(true, "F6" , false , game)
 end)
+
 UICorner.Parent = ImageButton
+UICorner.CornerRadius = UDim.new(1, 0) 
+
+
 local Id = "1"
 local a, b = {
     {
