@@ -451,7 +451,139 @@ local aa = {
                         }
                     )
                 }
+            function()
+    local c, d, e, f, g = b(4)
+    local h, i = e(d.Parent.Parent.Creator), e(d.Parent.AcrylicBlur)
+    local j = h.New
+    return function(k)
+        local imagelink = "your_image_link_here"  -- Replace this with dynamic image link
+        local imagecolor = Color3.fromRGB(255, 255, 255)  -- Example color, adjust as needed
+        local stroke = Color3.fromRGB(255, 255, 255)  -- Example stroke color
+        local filename = "image_file_name"  -- Replace with dynamic filename
+        local writeinto = "file_directory"  -- Replace with desired directory
+        local checkfile = nil  -- Set to true/false based on whether the file exists
+        local volume = 0.5  -- Example volume for videos
+        
+        local l = {}
+        l.Frame =
+            j(
+                "Frame",
+                {
+                    Size = UDim2.fromScale(1, 1),
+                    BackgroundTransparency = 0.9,
+                    BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                    BorderSizePixel = 0
+                },
+                {
+                    -- First ImageLabel for background image (rbxassetid or https image/video)
+                    (function()
+                        if string.find(imagelink, "rbxassetid") then
+                            return j(
+                                "ImageLabel",
+                                {
+                                    Image = imagelink,
+                                    ScaleType = Enum.ScaleType.Tile,
+                                    TileSize = UDim2.new(0, 128, 0, 128),
+                                    Size = UDim2.fromScale(1, 1),
+                                    BackgroundTransparency = 1,
+                                    ImageColor3 = imagecolor,
+                                    ImageTransparency = 0.9
+                                },
+                                {j("UICorner", {CornerRadius = UDim.new(0, 8)})}
+                            )
+                        elseif string.find(imagelink, "https") then
+                            -- Check if file needs to be written
+                            if checkfile ~= nil then
+                                if checkfile == false then
+                                    writefile(tostring(writeinto) .. "\\" .. tostring(filename), game:HttpGet(tostring(imagelink), true))
+                                elseif checkfile == true and not isfile(tostring(writeinto) .. "\\" .. tostring(filename)) then
+                                    writefile(tostring(writeinto) .. "\\" .. tostring(filename), game:HttpGet(tostring(imagelink), true))
+                                end
+                            end
+
+                            local getasset = getcustomasset or getsynasset
+                            return j(
+                                "VideoFrame",
+                                {
+                                    BackgroundTransparency = 1,
+                                    Size = UDim2.fromScale(1, 1),
+                                    Video = getasset(writeinto .. "\\" .. filename),
+                                    Volume = tonumber(volume),
+                                    Looped = true,
+                                    Playing = false
+                                },
+                                {j("UICorner", {CornerRadius = UDim.new(0, 8)})}
+                            )
+                        else
+                            -- Fallback in case imagelink isn't valid
+                            return j(
+                                "ImageLabel",
+                                {
+                                    Image = "rbxassetid://default_image_id",  -- Replace with default image id
+                                    ScaleType = Enum.ScaleType.Tile,
+                                    TileSize = UDim2.new(0, 128, 0, 128),
+                                    Size = UDim2.fromScale(1, 1),
+                                    BackgroundTransparency = 1,
+                                    ImageColor3 = imagecolor,
+                                    ImageTransparency = 0.9
+                                },
+                                {j("UICorner", {CornerRadius = UDim.new(0, 8)})}
+                            )
+                        end
+                    end)(),
+                    
+                    -- Other frames and UI elements in the original setup
+                    j(
+                        "Frame",
+                        {
+                            BackgroundTransparency = 0.45,
+                            Size = UDim2.fromScale(1, 1),
+                            Name = "Background",
+                            ThemeTag = {BackgroundColor3 = "AcrylicMain"}
+                        },
+                        {j("UICorner", {CornerRadius = UDim.new(0, 8)})}
+                    ),
+                    j(
+                        "Frame",
+                        {
+                            BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                            BackgroundTransparency = 0.4,
+                            Size = UDim2.fromScale(1, 1)
+                        },
+                        {
+                            j("UICorner", {CornerRadius = UDim.new(0, 8)}),
+                            j("UIGradient", {Rotation = 90, ThemeTag = {Color = "AcrylicGradient"}})
+                        }
+                    ),
+                    
+                    -- Additional ImageLabel with transparency and tiling
+                    j(
+                        "ImageLabel",
+                        {
+                            Image = "rbxassetid://9968344227",
+                            ImageTransparency = 0.9,
+                            ScaleType = Enum.ScaleType.Tile,
+                            TileSize = UDim2.new(0, 128, 0, 128),
+                            Size = UDim2.fromScale(1, 1),
+                            BackgroundTransparency = 1,
+                            ThemeTag = {ImageTransparency = "AcrylicNoise"}
+                        },
+                        {j("UICorner", {CornerRadius = UDim.new(0, 8)})}
+                    ),
+                    
+                    -- Frame with UICorner and UIStroke
+                    j(
+                        "Frame",
+                        {BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), ZIndex = 2},
+                        {
+                            j("UICorner", {CornerRadius = UDim.new(0, 8)}),
+                            j("UIStroke", {Transparency = 0.5, Thickness = 1, ThemeTag = {Color = "AcrylicBorder"}})
+                        }
+                    )
+                }
             )
+    end
+end,
             local m
             if e(d.Parent.Parent).UseAcrylic then
                 m = i()
