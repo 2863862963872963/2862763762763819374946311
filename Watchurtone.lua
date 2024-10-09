@@ -375,7 +375,7 @@ local aa = {
                 "Frame",
                 {
                     Size = UDim2.fromScale(1, 1),
-                    BackgroundTransparency = 0.9,
+                    BackgroundTransparency = 0.5,
                     BackgroundColor3 = Color3.fromRGB(255, 255, 255),
                     BorderSizePixel = 0
                 },
@@ -421,7 +421,7 @@ local aa = {
                         "ImageLabel",
                         {
                             Image = "rbxassetid://9968344105",
-                            ImageTransparency = 0.98,
+                            ImageTransparency = 1,
                             ScaleType = Enum.ScaleType.Tile,
                             TileSize = UDim2.new(0, 128, 0, 128),
                             Size = UDim2.fromScale(1, 1),
@@ -433,7 +433,7 @@ local aa = {
                         "ImageLabel",
                         {
                             Image = "rbxassetid://87338835273192",
-                            ImageTransparency = 0.6,
+                            ImageTransparency = 0.5,
                             ScaleType = Enum.ScaleType.Stretch,
                             TileSize = UDim2.new(0, 128, 0, 128),
                             Size = UDim2.fromScale(1, 1),
@@ -5151,7 +5151,7 @@ local aa = {
             AcrylicMain = Color3.fromRGB(60, 60, 60),
             AcrylicBorder = Color3.fromRGB(90, 90, 90),
             AcrylicGradient = ColorSequence.new(Color3.fromRGB(40, 40, 40), Color3.fromRGB(40, 40, 40)),
-            AcrylicNoise = 0.9,
+            AcrylicNoise = 0.5,
             TitleBarLine = Color3.fromRGB(75, 75, 75),
             Tab = Color3.fromRGB(120, 120, 120),
             Element = Color3.fromRGB(120, 120, 120),
