@@ -1120,11 +1120,13 @@ function _:CreateLabel(bc)
     bb.Visible = true
     bb.Parent = a0
     a2()
-    function bb:SetValue(newDescription)
+
+    bb.SetValue = function(self, newDescription)
         if newDescription then
-            bb.Title.Text = newDescription
+            self.Title.Text = newDescription
         end
     end
+
     return bb
 end
 function _:CreateCard(bd)
