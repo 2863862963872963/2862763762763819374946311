@@ -1094,13 +1094,10 @@ function _:CreateParagraph(ba)
     bb.Parent = a0
     a2()
 
-    function bb:SetValue(newTitle, newDescription)
-        if newTitle then
-            bb.Title.Text = newTitle
-        end
-        if newDescription then
-            bb.Content.Text = newDescription
-        end
+    function bb:SetValue(bTitle, bDesc)
+            ba.Title.Text = bTitle
+            ba.Description.Text = bDesc
+            ba.Content.Text = bDesc
     end
 
     return bb
