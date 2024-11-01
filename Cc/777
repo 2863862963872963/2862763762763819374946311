@@ -1,1 +1,46 @@
+local AuraIS = loadstring(game:HttpGet("https://raw.githubusercontent.com/2863862963872963/2862763762763819374946311/refs/heads/main/Agoodo82726277.lua"))()
 
+local Library = AuraIS:CreateLibrary({
+    Name = "Example", -- Name
+    Icon = "rbxassetid://12974454446" -- Icon
+})
+
+local TabDemo = Library:CreateTab("Hi", "rbxassetid://12974454446")
+
+
+local SectionDemo = TabDemo:CreateSection("Section 1", "Normal") -- Normal
+
+local SwitchToggle = SectionDemo:CreateToggle("Normal", {
+    Name = "Toggle Example",
+    Callback = function(Value)
+        print("Toggle value: " .. tostring(Value))
+    end,
+})
+
+
+
+local SliderDemo = SectionDemo:CreateSlider({
+	Name = "Slider Example",
+	Value = {0, 100},
+	Increment = 10,
+	Suffix = "Dragons",
+	CurrentValue = 10,
+	Flag = "Slider1",
+	Callback = function(Value)
+        print(Value)
+	end,
+ })
+
+
+local ColorPickerDemo = SectionDemo:CreateColorPicker({
+    Name = "Color Picker",
+    Callback = function(newColor)
+        print(newColor)
+    end,
+})
+
+local LabelDemo = SectionDemo:CreateLabel({
+	Description = "This is a sample description"
+})
+
+LabelDemo:SetValue("Nih")
