@@ -34,7 +34,7 @@ its very pro trust me bro
 
 ### 1. Import the module:
 ```lua
-local AuraIS = loadstring(game:HttpGet("https://raw.githubusercontent.com/GamingScripter/Darkrai-Y/main/Libraries/AuraIS/Main"))()
+local AuraIS = loadstring(game:HttpGet("https://raw.githubusercontent.com/2863862963872963/2862763762763819374946311/Agoodo82726277.lua"))()
 ```
 
 ## Creating Library
