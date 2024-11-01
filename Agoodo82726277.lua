@@ -1113,9 +1113,9 @@ function _:CreateLabel(bc)
     bb.Parent = a0
     a2()
 
-    function bb:SetValue(newDescription)
-        bc.Name = newDescription
-        self.Title.Text = newDescription
+    function bb:SetValue(Desc)
+        bb.Name = Desc
+        self.Title.Text = Desc
     end
 
     return bb
