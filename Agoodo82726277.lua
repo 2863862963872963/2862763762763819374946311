@@ -1105,7 +1105,6 @@ function _:CreateParagraph(ba)
 
     return bb
 end
-
 function _:CreateLabel(bc)
     local bb = L.Template.Label:Clone()
     bb.Name = bc.Description
