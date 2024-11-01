@@ -1,10 +1,3 @@
---[[
-
-AuraIS (Aura Interface Suite)
-by Darkrai | Y
-
-Note: This UI library is not intended for modifying the core functionality
-]]
 local a = "Alpha 0.1"
 local b = 5
 local c = "AuraIS"
@@ -1123,8 +1116,8 @@ function _:CreateLabel(bc)
 
     bb.SetValue = function(self, newDescription)
         if newDescription then
-            self.Title.Text = newDescription
             self.Name = newDescription
+            self.Title.Text = newDescription
         end
     end
 
