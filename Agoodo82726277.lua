@@ -1114,12 +1114,12 @@ function _:CreateLabel(bc)
     a2()
 
     function bb:SetValue(Desc)
-        bb.Name = Desc
+        self.Name = Desc
         self.Title.Text = Desc
     end
 
     return bb
-end
+            end
 function _:CreateCard(bd)
     local be = L.Template.Card:Clone()
     be.Name = bd.Title
