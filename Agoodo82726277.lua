@@ -1095,9 +1095,8 @@ function _:CreateParagraph(ba)
     a2()
 
     function bb:SetValue(bTitle, bDesc)
-            ba.Title.Text = bTitle
-            ba.Description.Text = bDesc
-            ba.Content.Text = bDesc
+        bb.Title.Text = bTitle
+        bb.Content.Text = bDesc
     end
 
     return bb
