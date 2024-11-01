@@ -1101,21 +1101,35 @@ function _:CreateParagraph(ba)
 
     return bb
 end
-function _:CreateLabel(bc)
+
+ function _:CreateLabel(bc)
+    local bb6 = {Func = bc.Callback, CopyAble = bc.CopyAble or false}  -- Add CopyAble with a default of false
+    
     local bb = L.Template.Label:Clone()
     bb.Name = bc.Description
     bb.Title.Text = bc.Description
     bb.Visible = true
     bb.Parent = a0
     a2()
-
-    function bb:SetValue(Desc)
-        self.Name = Desc
-        self.Title.Text = Desc
+    
+    function bb6:SetValue(Desc)
+        bb.Title.Text = Desc  -- Update label text
+        bb.Name = Desc        -- Update label name
     end
-
-    return bb
-            end
+    
+    bb.MouseButton1Click:Connect(function()
+        if bb6.CopyAble then
+            -- Copy text to clipboard
+            setclipboard(bb.Title.Text)
+            print("Text copied: " .. bb.Title.Text)
+        else
+            print("Copy is disabled.")
+        end
+    end)
+    
+    return bb6  -- Return the controller with SetValue method
+end           
+            
 function _:CreateCard(bd)
     local be = L.Template.Card:Clone()
     be.Name = bd.Title
