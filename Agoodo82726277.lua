@@ -1114,10 +1114,8 @@ function _:CreateLabel(bc)
     a2()
 
     function bb:SetValue(newDescription)
-        if newDescription then
-            self.Name = newDescription
-            self.Title.Text = newDescription
-        end
+        bc.Name = newDescription
+        self.Title.Text = newDescription
     end
 
     return bb
