@@ -1121,8 +1121,7 @@ function _:CreateLabel(bc)
     bb.Parent = a0
     a2()
 
-    -- SetValue function for Label
-    function bb:SetValue(newDescription)
+    bb.SetValue = function(self, newDescription)
         if newDescription then
             self.Title.Text = newDescription
             self.Name = newDescription
