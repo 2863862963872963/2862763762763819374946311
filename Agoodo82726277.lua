@@ -1,3 +1,8 @@
+for _, v in ipairs(game.CoreGui:GetChildren()) do
+    if v:IsA("ScreenGui") and v.Name == "UI_Library" then
+        v:Destroy()
+    end
+end
 local a = "Alpha 0.1"
 local b = 5
 local c = "AuraIS"
