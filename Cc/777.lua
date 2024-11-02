@@ -14,7 +14,8 @@ function AutoFish()
                     ["Action"] = "Attack",
                     ["Data"] = { ["Alpha"] = 1, ["ResponseTime"] = 0 }
                 })
-            until Character:GetAttribute("Catching")
+                IsCatching = Character:GetAttribute("Catching")
+            until Character:GetAttribute("Catching") == true
         end
 
         if Character:GetAttribute("Catching") then
