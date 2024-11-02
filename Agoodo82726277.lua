@@ -83,10 +83,10 @@ ImageButton.Draggable = true
 ImageButton.Image = "http://www.roblox.com/asset/?id=120984406880217"
 
 ImageButton.MouseButton1Down:Connect(function()
-    if game.CoreGui[f].Enabled then
-        game.CoreGui[f].Enabled = false
+    if game.CoreGui.UI_Library.Enabled then
+        game.CoreGui.UI_Library.Enabled = false
     else
-        game.CoreGui[f].Enabled = true
+        game.CoreGui.UI_Library..Enabled = true
     end
 end)
 UICorner.Parent = ImageButton
