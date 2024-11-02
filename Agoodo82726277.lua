@@ -61,11 +61,11 @@ function e:DragFunc(g, h)
         end
     )
 end
-function e:TatMoUi()
-    if game.CoreGui.UI_Library.Enabled then
-        game.CoreGui.UI_Library.Enabled = false
+function e:ToggleUi()
+    if game.CoreGui[f].Enabled then
+        game.CoreGui[f].Enabled = false
     else
-        game.CoreGui.UI_Library..Enabled = true
+        game.CoreGui[f].Enabled = true
     end
 end
 UICorner.Parent = ImageButton
