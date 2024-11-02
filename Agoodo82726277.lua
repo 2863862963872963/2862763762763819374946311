@@ -68,8 +68,7 @@ function e:ToggleUi()
         game.CoreGui[f].Enabled = true
     end
 end
-UICorner.Parent = ImageButton
-UICorner.CornerRadius = UDim.new(1, 0) 
+
 local o = game:GetService("TextService")
 local p = game:GetService("UserInputService")
 local q = game:GetService("TweenService")
