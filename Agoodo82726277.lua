@@ -4,10 +4,10 @@ for _, v in ipairs(game.CoreGui:GetChildren()) do
     end
 end
 function ToggleUI()
-    if game:GetService("CoreGui").UI_Library.Enabled then
-        game:GetService("CoreGui").UI_Library.Enabled = false
+    if game:GetService("CoreGui"):WaitForChild("UI_Library").Enabled then
+        game:GetService("CoreGui"):WaitForChild("UI_Library").Enabled = false
     else
-        game:GetService("CoreGui").UI_Library.Enabled = true
+        game:GetService("CoreGui"):WaitForChild("UI_Library").Enabled = true
     end
 end
 for _, v in ipairs(game.CoreGui:GetChildren()) do
@@ -32,7 +32,10 @@ ImageButton.Draggable = true
 ImageButton.Image = "http://www.roblox.com/asset/?id=120984406880217"
 
 ImageButton.MouseButton1Down:Connect(function()
-        ToggleUI()
+    local success, err = pcall(ToggleUI)
+    if not success then
+        warn("Error toggling UI:", err)
+    end
 end)
 
 UICorner.Parent = ImageButton
