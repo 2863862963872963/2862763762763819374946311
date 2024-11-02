@@ -1,3 +1,12 @@
+for _, v in ipairs(game.CoreGui:GetChildren()) do
+    if v:IsA("ScreenGui") and v.Name == "DjtMeMay" then
+        v:Destroy()
+    end
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
 local a = "Alpha 0.1"
 local b = 5
 local c = "AuraIS"
@@ -61,13 +70,27 @@ function e:DragFunc(g, h)
         end
     )
 end
-function e:ToggleUI()
+ScreenGui.Name = "DjtMeMay"
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
+ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Draggable = true
+ImageButton.Image = "http://www.roblox.com/asset/?id=120984406880217"
+
+ImageButton.MouseButton1Down:Connect(function()
     if game.CoreGui[f].Enabled then
         game.CoreGui[f].Enabled = false
     else
         game.CoreGui[f].Enabled = true
     end
-end
+end)
+UICorner.Parent = ImageButton
+UICorner.CornerRadius = UDim.new(1, 0) 
 local o = game:GetService("TextService")
 local p = game:GetService("UserInputService")
 local q = game:GetService("TweenService")
