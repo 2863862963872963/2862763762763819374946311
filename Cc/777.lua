@@ -22,6 +22,7 @@ function AutoFish()
             repeat
                 task.wait()
                 game:GetService("ReplicatedStorage").Events.FishPull:FireServer("Right")
+                IsCatching = Character:GetAttribute("Catching")
             until not Character:GetAttribute("Catching")
         end
     end
