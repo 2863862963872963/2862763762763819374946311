@@ -46,6 +46,7 @@ function AutoOpenStar()
         task.wait()
         if SelectingStar == nil or SelectingStar == "" then
             Notify("Star Open Notify!", "You haven't selected any star", 1)
+            AutoOpenStarTog:SetValue(False)
             break
         end
         for i, v in pairs(workspace.Server.Stars:GetChildren()) do
@@ -84,19 +85,26 @@ local Library = AuraIS:CreateLibrary({
 })
 
 function Notify(Title1, Content1, Duration1)
-    Library:Notify({
-        Title = Title1,
-        Content = Content1,
-        Duration = Duration1,
-        Image = "rbxassetid://4483362458",
-        Actions = {
-            Ignore = {
-                Name = "Okay!",
-                Callback = function()
-            end
-        },
-     },
-     })
+    local success, err = pcall(function()
+        Library:Notify({
+            Title = Title1,
+            Content = Content1,
+            Duration = Duration1,
+            Image = "rbxassetid://4483362458",
+            Actions = {
+                Ignore = {
+                    Name = "Okay!",
+                    Callback = function()
+                        
+                    end
+                }
+            },
+        })
+    end)
+    
+    if not success then
+        warn("Notify function failed: " .. tostring(err))
+    end
 end
 
 local MainTab = Library:CreateTab("Main", "rbxassetid://12974454446")
