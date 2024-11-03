@@ -360,110 +360,72 @@ function e:CreateLibrary(G, H)
                 return a6
             end
             function _:CreateToggle(ad, ae)
-                if ad == "Radio" then
-                    local af = {}
-                    local ag = L.Template.Toggle_Radio:Clone()
-                    local ah = ag.Interact
-                    local ai = ag.Switch
-                    local aj = ai.Indicator
-                    aj.BackgroundTransparency = 1
-                    aj.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
-                    ag.Name = ae.Name
-                    ag.Title.Text = ae.Name
-                    ag.Visible = true
-                    ag.Parent = a0
-                    a2()
-                    ag.Interact.MouseButton1Click:Connect(
-                        function()
-                            if ae.CurrentValue then
-                                ae.CurrentValue = false
-                                q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundTransparency = 1}):Play()
-                            else
-                                ae.CurrentValue = true
-                                q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundTransparency = 0}):Play()
-                            end
-                            local a8, a9 =
-                                pcall(
-                                function()
-                                    ae.Callback(ae.CurrentValue)
-                                end
-                            )
-                            if not a8 then
-                                q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(103, 0, 0)}):Play(
-
-                                )
-                                ag.Title.Text = "Error occurred"
-                                print("[AuraIS]: An error occurred: " .. tostring(a9))
-                                wait(0.5)
-                                ag.Title.Text = ae.Name
-                                q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = e.Theme.Dark.SecondaryColor}):Play(
-
-                                )
-                            end
-                        end
-                    )
-                    return ae
-                elseif ad == "Normal" then
-                    local af = {}
-                    local ag = L.Template.Toggle:Clone()
-                    local ah = ag.Interact
-                    local ai = ag.Switch
-                    local aj = ai.Indicator
-                    ag.Name = ae.Name
-                    ag.Title.Text = ae.Name
-                    ag.Visible = true
-                    ag.Parent = a0
-                    a2()
-                    ag.Interact.MouseButton1Click:Connect(
-                        function()
-                            if ae.CurrentValue then
-                                ae.CurrentValue = false
-                                q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(139, 139, 139)}):Play(
-
-                                )
-                                q:Create(aj, e.Theme.Dark.TweenInfo, {Position = UDim2.new(0.07, 0, 0.5, 0)}):Play()
-                            else
-                                ae.CurrentValue = true
-                                q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(170, 0, 255)}):Play(
-
-                                )
-                                q:Create(aj, e.Theme.Dark.TweenInfo, {Position = UDim2.new(0.537, 0, 0.5, 0)}):Play()
-                            end
-                            local a8, a9 =
-                                pcall(
-                                function()
-                                    ae.Callback(ae.CurrentValue)
-                                end
-                            )
-                            if not a8 then
-                                q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(103, 0, 0)}):Play(
-
-                                )
-                                ag.Title.Text = "Error occurred"
-                                print("[AuraIS]: An error occurred: " .. tostring(a9))
-                                wait(0.5)
-                                ag.Title.Text = ae.Name
-                                q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = e.Theme.Dark.SecondaryColor}):Play(
-
-                                )
-                            end
-                        end
-                    )
-                    ag.MouseEnter:Connect(
-                        function()
-                            q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
-                            q:Create(ag, e.Theme.Dark.TweenInfo, {Size = UDim2.new(1.011, -10, 0, 40)}):Play()
-                        end
-                    )
-                    ag.MouseLeave:Connect(
-                        function()
-                            q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(22, 22, 22)}):Play()
-                            q:Create(ag, e.Theme.Dark.TweenInfo, {Size = UDim2.new(1, -10, 0, 40)}):Play()
-                        end
-                    )
-                    return ae
-                end
+    local function SetValue(value)
+        ae.CurrentValue = value
+        if value then
+            q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundTransparency = 0}):Play()
+            if ad == "Normal" then
+                q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(170, 0, 255)}):Play()
+                q:Create(aj, e.Theme.Dark.TweenInfo, {Position = UDim2.new(0.537, 0, 0.5, 0)}):Play()
             end
+        else
+            q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundTransparency = 1}):Play()
+            if ad == "Normal" then
+                q:Create(aj, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(139, 139, 139)}):Play()
+                q:Create(aj, e.Theme.Dark.TweenInfo, {Position = UDim2.new(0.07, 0, 0.5, 0)}):Play()
+            end
+        end
+        ae.Callback(ae.CurrentValue)
+    end
+
+    if ad == "Radio" then
+        local af = {}
+        local ag = L.Template.Toggle_Radio:Clone()
+        local ah = ag.Interact
+        local ai = ag.Switch
+        local aj = ai.Indicator
+        aj.BackgroundTransparency = 1
+        aj.BackgroundColor3 = Color3.fromRGB(170, 0, 255)
+        ag.Name = ae.Name
+        ag.Title.Text = ae.Name
+        ag.Visible = true
+        ag.Parent = a0
+        a2()
+
+        ag.Interact.MouseButton1Click:Connect(function()
+            SetValue(not ae.CurrentValue)
+        end)
+        ae.SetValue = SetValue  
+        return ae
+    elseif ad == "Normal" then
+        local af = {}
+        local ag = L.Template.Toggle:Clone()
+        local ah = ag.Interact
+        local ai = ag.Switch
+        local aj = ai.Indicator
+        ag.Name = ae.Name
+        ag.Title.Text = ae.Name
+        ag.Visible = true
+        ag.Parent = a0
+        a2()
+
+        -- Add click event
+        ag.Interact.MouseButton1Click:Connect(function()
+            SetValue(not ae.CurrentValue)
+        end)
+        ag.MouseEnter:Connect(function()
+            q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+            q:Create(ag, e.Theme.Dark.TweenInfo, {Size = UDim2.new(1.011, -10, 0, 40)}):Play()
+        end)
+        ag.MouseLeave:Connect(function()
+            q:Create(ag, e.Theme.Dark.TweenInfo, {BackgroundColor3 = Color3.fromRGB(22, 22, 22)}):Play()
+            q:Create(ag, e.Theme.Dark.TweenInfo, {Size = UDim2.new(1, -10, 0, 40)}):Play()
+        end)
+
+        ae.SetValue = SetValue  
+        return ae
+    end
+end
             function _:CreateColorPicker(ak)
                 local al = L.Template.ColorPicker:Clone()
                 local am = al.Switch
