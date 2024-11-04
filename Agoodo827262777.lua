@@ -462,6 +462,12 @@ function e:CreateLibrary(G, H)
                             q:Create(ag, e.Theme.Dark.TweenInfo, {Size = UDim2.new(1, -10, 0, 40)}):Play()
                         end
                     )
+                    function af:Set(nig)
+                        ae.CurrentValue = nig
+                    end
+                    function af:SetValue(T1)
+                        ag.Title.Text = T1
+                    end
                     return ae
                 end
             end
@@ -1087,6 +1093,46 @@ function e:CreateLibrary(G, H)
                                 b6.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
                             end
                         end
+                    end
+                end
+                                function aX:SetOption(newOptions)
+    if typeof(newOptions) == "string" then
+        newOptions = {newOptions}
+    end
+
+    if not aX.MultipleOptions then
+        aX.CurrentOption = {newOptions[1]}
+    else
+        aX.CurrentOption = newOptions
+    end
+
+    if aX.MultipleOptions then
+        if #aX.CurrentOption == 1 then
+            aY.Selected.Text = aX.CurrentOption[1]
+        elseif #aX.CurrentOption == 0 then
+            aY.Selected.Text = "None"
+        else
+            aY.Selected.Text = "Various"
+        end
+    else
+        aY.Selected.Text = aX.CurrentOption[1]
+    end
+
+    local success, err = pcall(function()
+        aX.Callback(aX.MultipleOptions and aX.CurrentOption or aX.CurrentOption[1])
+    end)
+    if not success then
+        warn("Error in dropdown callback: " .. err)
+    end
+
+    for _, listItem in ipairs(aY.List:GetChildren()) do
+        if listItem.ClassName == "Frame" and listItem.Name ~= "Placeholder" then
+            if table.find(aX.CurrentOption, listItem.Name) then
+                listItem.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+            else
+                listItem.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+            end
+        end
                     end
                 end
                 return aX
