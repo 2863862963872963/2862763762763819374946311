@@ -4,6 +4,7 @@ local Character = Player.Character or Player.CharacterAdded:Wait()
 
 local SelectingStar;
 local SelectingMap;
+local SelectingMob;
 
 local Stars = {}
 for i, v in pairs(workspace.Server.Stars:GetChildren()) do
@@ -77,7 +78,7 @@ function AutoReequip()
 end
 
 
-local AuraIS = loadstring(game:HttpGet("https://raw.githubusercontent.com/2863862963872963/2862763762763819374946311/refs/heads/main/Agoodo82726277.lua"))()
+local AuraIS = loadstring(game:HttpGet("https://raw.githubusercontent.com/2863862963872963/2862763762763819374946311/refs/heads/main/Agoodo827262777.lua"))()
 
 local Library = AuraIS:CreateLibrary({
     Name = "",
@@ -142,6 +143,37 @@ local MapDropDown = FarmSelection:CreateDropdown({
     Callback = function(v)
         SelectingMap = v
         print("Selecting Map:", SelectingMap)
+    end,
+})
+local MobsDropDown = FarmSelection:CreateDropdown({
+    Name = "Mob ",
+    Options = {},
+    CurrentOption = {""},
+    MultipleOptions = false,
+    Flag = "MobssDD",
+    Callback = function(v)
+        SelectingMob = v
+        print("Selecting Mob:", SelectingMob)
+    end,
+})
+
+function RefreshMob()
+    local Mobs = {}
+    if SelectingMap and workspace.Server.Enemies:FindFirstChild(SelectingMap) then
+        for i, v in pairs(workspace.Server.Enemies[SelectingMap]:GetChildren()) do
+            table.insert(Mobs, v.Name)
+        end
+    else
+        Notify("Mobs Dropdown !", "You haven't choose map yet", 1)
+    end
+
+    MobsDropDown.Options = {Mobs}
+end
+
+local RefreshButton = FarmSelection:CreateButton({
+    Name = "Refresh",
+    Callback = function()
+        RefreshMob()
     end,
 })
 
