@@ -10,11 +10,17 @@ local Stars = {}
 for i, v in pairs(workspace.Server.Stars:GetChildren()) do
     table.insert(Stars, v.Name)
 end
-
 local Maps = {}
 for i, v in pairs(workspace.Server.Enemies:GetChildren()) do
     table.insert(Maps, v.Name)
 end
+local Mobs = {}
+for i, v in pairs(workspace.Server.Enemies:GetDescendants()) do
+    if v.ClassName == "Part" then
+        table.insert(Mobs, v.Name)
+    end
+end
+
 
 local Pets = workspace.Server.Pets:GetChildren()
 
@@ -41,6 +47,16 @@ function AutoClick()
         game:GetService("ReplicatedStorage").Remotes.Bridge:FireServer("Enemies", "World", "Click")
     end
 end
+
+local args = {
+    [1] = "General",
+    [2] = "Pets",
+    [3] = "Attack",
+    [4] = the uuids that behind player name,
+    [5] = workspace.Server.Enemies:FindFirstChild("Leaf Village"):FindFirstChild("Ebito Evolution")
+}
+
+game:GetService("ReplicatedStorage").Remotes.Bridge:FireServer(unpack(args))
 
 function AutoOpenStar()
     while getgenv().AutoOpenStar do
@@ -134,20 +150,10 @@ local AutoReEquipTog = ConfigSelection:CreateToggle("Radio", {
 })
 
 local FarmSelection = MainTab:CreateSection("Farm 💲", "Normal")
-local MapDropDown = FarmSelection:CreateDropdown({
-    Name = "Map",
-    Options = Maps,
-    CurrentOption = {""},
-    MultipleOptions = false,
-    Flag = "MapsDD",
-    Callback = function(v)
-        SelectingMap = v
-        print("Selecting Map:", SelectingMap)
-    end,
-})
+
 local MobsDropDown = FarmSelection:CreateDropdown({
     Name = "Mob ",
-    Options = {},
+    Options = Mobs,
     CurrentOption = {""},
     MultipleOptions = false,
     Flag = "MobssDD",
@@ -157,25 +163,8 @@ local MobsDropDown = FarmSelection:CreateDropdown({
     end,
 })
 
-function RefreshMob()
-    local Mobs = {}
-    if SelectingMap and workspace.Server.Enemies:FindFirstChild(SelectingMap) then
-        for i, v in pairs(workspace.Server.Enemies[SelectingMap]:GetChildren()) do
-            table.insert(Mobs, v.Name)
-        end
-    else
-        Notify("Mobs Dropdown !", "You haven't choose map yet", 1)
-    end
 
-    MobsDropDown.Options = {Mobs}
-end
 
-local RefreshButton = FarmSelection:CreateButton({
-    Name = "Refresh",
-    Callback = function()
-        RefreshMob()
-    end,
-})
 
 local EggSelection = EggTab:CreateSection("Egg", "Normal")
 
