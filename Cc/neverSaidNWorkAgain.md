@@ -16,7 +16,7 @@ local Hawk = loadstring(game:HttpGet("https://raw.githubusercontent.com/28638629
 local Window = Hawk:Window({
 	ScriptName = "Hawk HUB",
 	DestroyIfExists = true, --if false, gui wont disappear
-	Theme = "Dark" --Themes: Pink, White, Dark
+	Theme = "Dark" --Themes: Pink, White, Dark, LavenderTown, OceanBreeze, SunsetGlow
 })
 ```
 
