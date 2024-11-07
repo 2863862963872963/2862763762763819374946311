@@ -418,6 +418,12 @@ function HawkLib:Window(Win)
 		if selectedtheme ~= nil then
 			if selectedtheme == "White" then
 				Theme = "White"
+		        elseif selectedtheme == "OceanBreeze" then
+				Theme = "OceanBreeze"
+			elseif selectedtheme == "SunsetGlow" then
+				Theme = "SunsetGlow"
+			elseif Selectedtheme == "LavenderTown" then
+				Theme = "LavenderTown"
 			elseif selectedtheme == "Pink" then
 				Theme = "Pink"
 			elseif selectedtheme == "Dark" then
