@@ -4,7 +4,7 @@ for _, v in ipairs(game.CoreGui:GetChildren()) do
         v:Destroy()
     end
 end
-function HawkLib:ToggleUI()	
+function ToggleUI()	
 	for i, v in pairs(game.CoreGui:GetChildren()) do
 		if v.Name == "Hawk" then
 			if v.Enabled == true then
