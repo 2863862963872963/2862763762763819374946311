@@ -4,6 +4,45 @@ for _, v in ipairs(game.CoreGui:GetChildren()) do
         v:Destroy()
     end
 end
+function HawkLib:ToggleUI()	
+	for i, v in pairs(game.CoreGui:GetChildren()) do
+		if v.Name == "Hawk" then
+			if v.Enabled == true then
+				v.Enabled = false
+			else
+				v.Enabled = true	
+			end
+		end
+	end
+end
+
+local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
+
+ScreenGui.Name = "Sisch"
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.1208, 0, 0.0953, 0)
+ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Draggable = true
+ImageButton.Image = "rbxassetid://77255173481760"  -- Make sure this ID is valid
+
+ImageButton.MouseButton1Down:Connect(function()
+    local success, err = pcall(function()
+        HawkLib:ToggleUI()
+    end)
+    if not success then
+        warn("Error toggling UI:", err)
+    end
+end)
+
+UICorner.Parent = ImageButton
+UICorner.CornerRadius = UDim.new(1, 0)
 local UserInputService = game:GetService("UserInputService")
 local OnPc = not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled
 local OnMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled
@@ -653,46 +692,6 @@ function HawkLib:Window(Win)
 		Shadow.ImageColor3 = HawkLib.Themes[Theme].Shadow
 		Shadow.ScaleType = Enum.ScaleType.Slice
 		Shadow.SliceCenter = Rect.new(24, 24, 276, 276)
-
-function HawkLib:ToggleUI()	
-			for i, v in pairs(game.CoreGui:GetChildren()) do
-				if v.Name == "Hawk" then
-					if v.Enabled == true then
-						v.Enabled = false
-					else
-						v.Enabled = true	
-					end
-				end
-			end
-		end
-
-local ScreenGui = Instance.new("ScreenGui")
-local ImageButton = Instance.new("ImageButton")
-local UICorner = Instance.new("UICorner")
-
-ScreenGui.Name = "Sisch"
-ScreenGui.Parent = game.CoreGui
-ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-ImageButton.Parent = ScreenGui
-ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-ImageButton.BorderSizePixel = 0
-ImageButton.Position = UDim2.new(0.1208, 0, 0.0953, 0)
-ImageButton.Size = UDim2.new(0, 50, 0, 50)
-ImageButton.Draggable = true
-ImageButton.Image = "rbxassetid://77255173481760"  -- Make sure this ID is valid
-
-ImageButton.MouseButton1Down:Connect(function()
-    local success, err = pcall(function()
-        HawkLib:ToggleUI()
-    end)
-    if not success then
-        warn("Error toggling UI:", err)
-    end
-end)
-
-UICorner.Parent = ImageButton
-UICorner.CornerRadius = UDim.new(1, 0)
 		
 		function HawkLib:Destroy()		
 			for i, v in pairs(game.CoreGui:GetChildren()) do
