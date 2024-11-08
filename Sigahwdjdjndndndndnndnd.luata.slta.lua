@@ -4,17 +4,6 @@ for _, v in ipairs(game.CoreGui:GetChildren()) do
         v:Destroy()
     end
 end
-function ToggleUI()	
-	for i, v in pairs(game.CoreGui:GetChildren()) do
-		if v.Name == "Hawk" then
-			if v.Enabled == true then
-				v.Enabled = false
-			else
-				v.Enabled = true	
-			end
-		end
-	end
-end
 
 local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
@@ -692,7 +681,17 @@ function HawkLib:Window(Win)
 		Shadow.ImageColor3 = HawkLib.Themes[Theme].Shadow
 		Shadow.ScaleType = Enum.ScaleType.Slice
 		Shadow.SliceCenter = Rect.new(24, 24, 276, 276)
-		
+		function ToggleUI()	
+	              for i, v in pairs(game.CoreGui:GetChildren()) do
+			if v.Name == "Hawk" then
+					if v.Enabled == true then
+						v.Enabled = false
+					else
+						v.Enabled = true	
+					end
+				end
+			end
+		end
 		function HawkLib:Destroy()		
 			for i, v in pairs(game.CoreGui:GetChildren()) do
 				if v.Name == "Hawk" then
