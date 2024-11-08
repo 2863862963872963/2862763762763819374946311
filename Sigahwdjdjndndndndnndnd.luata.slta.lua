@@ -34,7 +34,7 @@ ImageButton.Image = "rbxassetid://77255173481760"  -- Make sure this ID is valid
 
 ImageButton.MouseButton1Down:Connect(function()
     local success, err = pcall(function()
-        HawkLib:ToggleUI()
+        ToggleUI()
     end)
     if not success then
         warn("Error toggling UI:", err)
