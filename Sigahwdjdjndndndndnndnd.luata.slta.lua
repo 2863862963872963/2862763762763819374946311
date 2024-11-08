@@ -1,5 +1,9 @@
 -- Image Function is firstly made by __spyro. After the ui libs with image function probably skidded this source
-
+for _, v in ipairs(game.CoreGui:GetChildren()) do
+    if v:IsA("ScreenGui") and v.Name == "Sisch" then
+        v:Destroy()
+    end
+end
 local UserInputService = game:GetService("UserInputService")
 local OnPc = not UserInputService.TouchEnabled and UserInputService.KeyboardEnabled and UserInputService.MouseEnabled
 local OnMobile = UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled
@@ -430,8 +434,6 @@ function HawkLib:Window(Win)
 				Theme = "Pink"
 			elseif selectedtheme == "Dark" then
 				Theme = "Dark"
-			else
-				Theme = "Dark"
 			end
 		else
 			Theme = "Dark"
@@ -663,7 +665,31 @@ function HawkLib:Window(Win)
 				end
 			end
 		end
+                local ScreenGui = Instance.new("ScreenGui")
+local ImageButton = Instance.new("ImageButton")
+local UICorner = Instance.new("UICorner")
 
+ScreenGui.Name = "Sisch"
+ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+ImageButton.Parent = ScreenGui
+ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ImageButton.BorderSizePixel = 0
+ImageButton.Position = UDim2.new(0.120833337, 0, 0.0952890813, 0)
+ImageButton.Size = UDim2.new(0, 50, 0, 50)
+ImageButton.Draggable = true
+ImageButton.Image = "77255173481760"
+
+ImageButton.MouseButton1Down:Connect(function()
+    local success, err = pcall(HawkLib:ToggleUI)
+    if not success then
+        warn("Error toggling UI:", err)
+    end
+end)
+
+UICorner.Parent = ImageButton
+UICorner.CornerRadius = UDim.new(1, 0)
 		function HawkLib:Destroy()		
 			for i, v in pairs(game.CoreGui:GetChildren()) do
 				if v.Name == "Hawk" then
