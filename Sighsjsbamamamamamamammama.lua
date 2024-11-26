@@ -1838,7 +1838,7 @@ local aa = {
                      then
                         local N, O = M.Position - B, v.Size
                         local P = Vector3.new(O.X.Offset, O.Y.Offset, 0) + Vector3.new(1, 1, 0) * N
-                        local Q = Vector2.new(math.clamp(P.X, 470, 2048), math.clamp(P.Y, 380, 2048))
+                        local Q = Vector2.new(math.clamp(P.X, 20, 2000), math.clamp(P.Y, 20, 2000))
                         G:setGoal {X = l.Instant.new(Q.X), Y = l.Instant.new(Q.Y)}
                     end
                 end
