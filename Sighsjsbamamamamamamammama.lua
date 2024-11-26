@@ -1324,7 +1324,6 @@ local aa = {
         n = n or false
         local o = {}
 
-        -- Input Box
         o.Input =
             l(
             "TextBox",
@@ -1344,19 +1343,21 @@ local aa = {
         )
 
         o.Button =
-            l(
-            "TextButton",
-            {
-                FontFace = Font.new "rbxasset://fonts/families/GothamSSm.json",
-                TextColor3 = Color3.fromRGB(255, 255, 255),
-                Text = "Submit",
-                TextSize = 14,
-                BackgroundColor3 = Color3.fromRGB(100, 100, 200),
-                Size = UDim2.new(0.5, -10, 1, 0), -- Adjust button size
-                Position = UDim2.new(1.047, 0, 0, 0), -- Position next to input
-                ThemeTag = {TextColor3 = "Text"}
-            }
-        )
+    l(
+    "ImageButton",
+    {
+        Image = "rbxassetid://1234567890", -- Replace with your image asset ID
+        Size = UDim2.new(0.15, 0, 1, 0), -- Adjust size for the image
+        Position = UDim2.new(0.85, 0, 0, 0), -- Position next to the input box
+        BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color (optional)
+        BackgroundTransparency = 0, -- Optional: Transparent background if not needed
+        Parent = o.Frame.Parent, -- Set parent to the parent of the Frame
+        ThemeTag = {ImageColor3 = "Text"}
+    },
+    {
+        l("UICorner", {CornerRadius = UDim.new(0, 4)}) -- Rounded corners
+    }
+            )
 
         o.Container =
             l(
