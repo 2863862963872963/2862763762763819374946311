@@ -16,7 +16,8 @@ local a, b = {
                     {51, "ModuleScript", {"Darker"}},
                     {53, "ModuleScript", {"Rose"}},
                     {49, "ModuleScript", {"Aqua"}},
-                    {48, "ModuleScript", {"Amethyst"}}
+                    {48, "ModuleScript", {"Amethyst"}},
+                    {54, "ModuleScript", {"Lavender"}}
                 }
             },
             {
@@ -5056,7 +5057,7 @@ local aa = {
     end,
     [47] = function()
         local aa, ab, ac, ad, ae = b(47)
-        local af = {Names = {"Dark", "Darker", "Light", "Aqua", "Amethyst", "Rose"}}
+        local af = {Names = {"Dark", "Darker", "Light", "Aqua", "Amethyst", "Rose", "Lavender"}}
         for ag, ah in next, ab:GetChildren() do
             local aj = ac(ah)
             af[aj.Name] = aj
@@ -5290,6 +5291,46 @@ local aa = {
             Hover = Color3.fromRGB(200, 120, 170),
             HoverChange = 0.04
         }
+    end,
+    [54] = function()
+    local aa, ab, ac, ad, ae = b(53)
+    return {
+        Name = "Lavender",
+        Accent = Color3.fromRGB(150, 80, 200),
+        AcrylicMain = Color3.fromRGB(30, 30, 50),
+        AcrylicBorder = Color3.fromRGB(90, 70, 120),
+        AcrylicGradient = ColorSequence.new(Color3.fromRGB(180, 100, 220), Color3.fromRGB(120, 60, 150)),
+        AcrylicNoise = 0.88,
+        TitleBarLine = Color3.fromRGB(100, 60, 150),
+        Tab = Color3.fromRGB(140, 100, 180),
+        Element = Color3.fromRGB(170, 120, 210),
+        ElementBorder = Color3.fromRGB(80, 50, 100),
+        InElementBorder = Color3.fromRGB(90, 60, 110),
+        ElementTransparency = 0.84,
+        ToggleSlider = Color3.fromRGB(170, 120, 210),
+        ToggleToggled = Color3.fromRGB(0, 0, 0),
+        SliderRail = Color3.fromRGB(170, 120, 210),
+        DropdownFrame = Color3.fromRGB(160, 120, 190),
+        DropdownHolder = Color3.fromRGB(80, 40, 100),
+        DropdownBorder = Color3.fromRGB(60, 30, 80),
+        DropdownOption = Color3.fromRGB(170, 120, 210),
+        Keybind = Color3.fromRGB(170, 120, 210),
+        Input = Color3.fromRGB(170, 120, 210),
+        InputFocused = Color3.fromRGB(20, 10, 40),
+        InputIndicator = Color3.fromRGB(140, 110, 170),
+        Dialog = Color3.fromRGB(90, 40, 100),
+        DialogHolder = Color3.fromRGB(70, 30, 90),
+        DialogHolderLine = Color3.fromRGB(60, 30, 80),
+        DialogButton = Color3.fromRGB(90, 40, 100),
+        DialogButtonBorder = Color3.fromRGB(130, 70, 150),
+        DialogBorder = Color3.fromRGB(80, 50, 110),
+        DialogInput = Color3.fromRGB(120, 60, 150),
+        DialogInputLine = Color3.fromRGB(180, 140, 200),
+        Text = Color3.fromRGB(230, 230, 255),
+        SubText = Color3.fromRGB(150, 150, 180),
+        Hover = Color3.fromRGB(170, 120, 210),
+        HoverChange = 0.03
+    }
     end
 }
 do
