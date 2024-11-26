@@ -1316,121 +1316,155 @@ local aa = {
         return o
     end,
     [15] = function()
-        local c, d, e, f, g = b(15)
-        local h, i = game:GetService "TextService", d.Parent.Parent
-        local j, k = e(i.Packages.Flipper), e(i.Creator)
-        local l = k.New
-        return function(m, n)
-            n = n or false
-            local o = {}
-            o.Input =
+    local c, d, e, f, g = b(15)
+    local h, i = game:GetService "TextService", d.Parent.Parent
+    local j, k = e(i.Packages.Flipper), e(i.Creator)
+    local l = k.New
+    return function(m, n)
+        n = n or false
+        local o = {}
+
+        -- Input Box
+        o.Input =
+            l(
+            "TextBox",
+            {
+                FontFace = Font.new "rbxasset://fonts/families/GothamSSm.json",
+                TextColor3 = Color3.fromRGB(200, 200, 200),
+                TextSize = 14,
+                TextXAlignment = Enum.TextXAlignment.Left,
+                TextYAlignment = Enum.TextYAlignment.Center,
+                BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+                AutomaticSize = Enum.AutomaticSize.Y,
+                BackgroundTransparency = 1,
+                Size = UDim2.fromScale(0.8, 1), -- Adjust size to make room for button
+                Position = UDim2.fromOffset(10, 0),
+                ThemeTag = {TextColor3 = "Text", PlaceholderColor3 = "SubText"}
+            }
+        )
+
+        -- Submit Button
+        o.Button =
+            l(
+            "TextButton",
+            {
+                FontFace = Font.new "rbxasset://fonts/families/GothamSSm.json",
+                TextColor3 = Color3.fromRGB(255, 255, 255),
+                Text = "Submit",
+                TextSize = 14,
+                BackgroundColor3 = Color3.fromRGB(100, 100, 200),
+                Size = UDim2.new(0.2, -10, 1, 0), -- Adjust button size
+                Position = UDim2.new(0.8, 0, 0, 0), -- Position next to input
+                ThemeTag = {TextColor3 = "Text"}
+            }
+        )
+
+        -- Container for Input and Button
+        o.Container =
+            l(
+            "Frame",
+            {
+                BackgroundTransparency = 1,
+                ClipsDescendants = true,
+                Position = UDim2.new(0, 6, 0, 0),
+                Size = UDim2.new(1, -12, 1, 0)
+            },
+            {o.Input, o.Button} -- Add Input and Button to the container
+        )
+
+        o.Indicator =
+            l(
+            "Frame",
+            {
+                Size = UDim2.new(1, -4, 0, 1),
+                Position = UDim2.new(0, 2, 1, 0),
+                AnchorPoint = Vector2.new(0, 1),
+                BackgroundTransparency = n and 0.5 or 0,
+                ThemeTag = {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"}
+            }
+        )
+
+        -- Main Frame
+        o.Frame =
+            l(
+            "Frame",
+            {
+                Size = UDim2.new(0, 0, 0, 30),
+                BackgroundTransparency = n and 0.9 or 0,
+                Parent = m,
+                ThemeTag = {BackgroundColor3 = n and "Input" or "DialogInput"}
+            },
+            {
+                l("UICorner", {CornerRadius = UDim.new(0, 4)}),
                 l(
-                "TextBox",
-                {
-                    FontFace = Font.new "rbxasset://fonts/families/GothamSSm.json",
-                    TextColor3 = Color3.fromRGB(200, 200, 200),
-                    TextSize = 14,
-                    TextXAlignment = Enum.TextXAlignment.Left,
-                    TextYAlignment = Enum.TextYAlignment.Center,
-                    BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-                    AutomaticSize = Enum.AutomaticSize.Y,
-                    BackgroundTransparency = 1,
-                    Size = UDim2.fromScale(1, 1),
-                    Position = UDim2.fromOffset(10, 0),
-                    ThemeTag = {TextColor3 = "Text", PlaceholderColor3 = "SubText"}
-                }
-            )
-            o.Container =
-                l(
-                "Frame",
-                {
-                    BackgroundTransparency = 1,
-                    ClipsDescendants = true,
-                    Position = UDim2.new(0, 6, 0, 0),
-                    Size = UDim2.new(1, -12, 1, 0)
-                },
-                {o.Input}
-            )
-            o.Indicator =
-                l(
-                "Frame",
-                {
-                    Size = UDim2.new(1, -4, 0, 1),
-                    Position = UDim2.new(0, 2, 1, 0),
-                    AnchorPoint = Vector2.new(0, 1),
-                    BackgroundTransparency = n and 0.5 or 0,
-                    ThemeTag = {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"}
-                }
-            )
-            o.Frame =
-                l(
-                "Frame",
-                {
-                    Size = UDim2.new(0, 0, 0, 30),
-                    BackgroundTransparency = n and 0.9 or 0,
-                    Parent = m,
-                    ThemeTag = {BackgroundColor3 = n and "Input" or "DialogInput"}
-                },
-                {
-                    l("UICorner", {CornerRadius = UDim.new(0, 4)}),
-                    l(
-                        "UIStroke",
-                        {
-                            ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-                            Transparency = n and 0.5 or 0.65,
-                            ThemeTag = {Color = n and "InElementBorder" or "DialogButtonBorder"}
-                        }
-                    ),
-                    o.Indicator,
-                    o.Container
-                }
-            )
-            local p = function()
-                local p, q = 2, o.Container.AbsoluteSize.X
-                if not o.Input:IsFocused() or o.Input.TextBounds.X <= q - 2 * p then
-                    o.Input.Position = UDim2.new(0, p, 0, 0)
-                else
-                    local r = o.Input.CursorPosition
-                    if r ~= -1 then
-                        local s = string.sub(o.Input.Text, 1, r - 1)
-                        local t = h:GetTextSize(s, o.Input.TextSize, o.Input.Font, Vector2.new(math.huge, math.huge)).X
-                        local u = o.Input.Position.X.Offset + t
-                        if u < p then
-                            o.Input.Position = UDim2.fromOffset(p - t, 0)
-                        elseif u > q - p - 1 then
-                            o.Input.Position = UDim2.fromOffset(q - t - p - 1, 0)
-                        end
+                    "UIStroke",
+                    {
+                        ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
+                        Transparency = n and 0.5 or 0.65,
+                        ThemeTag = {Color = n and "InElementBorder" or "DialogButtonBorder"}
+                    }
+                ),
+                o.Indicator,
+                o.Container
+            }
+        )
+
+        -- Functionality for Input and Button
+        local p = function()
+            local p, q = 2, o.Container.AbsoluteSize.X
+            if not o.Input:IsFocused() or o.Input.TextBounds.X <= q - 2 * p then
+                o.Input.Position = UDim2.new(0, p, 0, 0)
+            else
+                local r = o.Input.CursorPosition
+                if r ~= -1 then
+                    local s = string.sub(o.Input.Text, 1, r - 1)
+                    local t = h:GetTextSize(s, o.Input.TextSize, o.Input.Font, Vector2.new(math.huge, math.huge)).X
+                    local u = o.Input.Position.X.Offset + t
+                    if u < p then
+                        o.Input.Position = UDim2.fromOffset(p - t, 0)
+                    elseif u > q - p - 1 then
+                        o.Input.Position = UDim2.fromOffset(q - t - p - 1, 0)
                     end
                 end
             end
-            task.spawn(p)
-            k.AddSignal(o.Input:GetPropertyChangedSignal "Text", p)
-            k.AddSignal(o.Input:GetPropertyChangedSignal "CursorPosition", p)
-            k.AddSignal(
-                o.Input.Focused,
-                function()
-                    p()
-                    o.Indicator.Size = UDim2.new(1, -2, 0, 2)
-                    o.Indicator.Position = UDim2.new(0, 1, 1, 0)
-                    o.Indicator.BackgroundTransparency = 0
-                    k.OverrideTag(o.Frame, {BackgroundColor3 = n and "InputFocused" or "DialogHolder"})
-                    k.OverrideTag(o.Indicator, {BackgroundColor3 = "Accent"})
-                end
-            )
-            k.AddSignal(
-                o.Input.FocusLost,
-                function()
-                    p()
-                    o.Indicator.Size = UDim2.new(1, -4, 0, 1)
-                    o.Indicator.Position = UDim2.new(0, 2, 1, 0)
-                    o.Indicator.BackgroundTransparency = 0.5
-                    k.OverrideTag(o.Frame, {BackgroundColor3 = n and "Input" or "DialogInput"})
-                    k.OverrideTag(o.Indicator, {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"})
-                end
-            )
-            return o
         end
-    end,
+
+        -- Button Callback
+        k.AddSignal(o.Button.MouseButton1Click, function()
+            local userInput = o.Input.Text
+            print("User Submitted: " .. userInput)
+            -- Add custom logic for the input here
+        end)
+
+        task.spawn(p)
+        k.AddSignal(o.Input:GetPropertyChangedSignal "Text", p)
+        k.AddSignal(o.Input:GetPropertyChangedSignal "CursorPosition", p)
+        k.AddSignal(
+            o.Input.Focused,
+            function()
+                p()
+                o.Indicator.Size = UDim2.new(1, -2, 0, 2)
+                o.Indicator.Position = UDim2.new(0, 1, 1, 0)
+                o.Indicator.BackgroundTransparency = 0
+                k.OverrideTag(o.Frame, {BackgroundColor3 = n and "InputFocused" or "DialogHolder"})
+                k.OverrideTag(o.Indicator, {BackgroundColor3 = "Accent"})
+            end
+        )
+        k.AddSignal(
+            o.Input.FocusLost,
+            function()
+                p()
+                o.Indicator.Size = UDim2.new(1, -4, 0, 1)
+                o.Indicator.Position = UDim2.new(0, 2, 1, 0)
+                o.Indicator.BackgroundTransparency = 0.5
+                k.OverrideTag(o.Frame, {BackgroundColor3 = n and "Input" or "DialogInput"})
+                k.OverrideTag(o.Indicator, {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"})
+            end
+        )
+
+        return o
+    end
+end,
     [16] = function()
         local c, d, e, f, g = b(16)
         local h, i = d.Parent.Parent, e(d.Parent.Assets)
