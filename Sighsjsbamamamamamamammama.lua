@@ -1343,7 +1343,6 @@ local aa = {
             }
         )
 
-        -- Submit Button
         o.Button =
             l(
             "TextButton",
@@ -1353,13 +1352,12 @@ local aa = {
                 Text = "Submit",
                 TextSize = 14,
                 BackgroundColor3 = Color3.fromRGB(100, 100, 200),
-                Size = UDim2.new(0.2, -10, 1, 0), -- Adjust button size
-                Position = UDim2.new(0.8, 0, 0, 0), -- Position next to input
+                Size = UDim2.new(0.5, -10, 1, 0), -- Adjust button size
+                Position = UDim2.new(1.047, 0, 0, 0), -- Position next to input
                 ThemeTag = {TextColor3 = "Text"}
             }
         )
 
-        -- Container for Input and Button
         o.Container =
             l(
             "Frame",
@@ -3115,7 +3113,7 @@ end,
             local j = ac(aj.Textbox)(i.Frame, true)
             j.Frame.Position = UDim2.new(1, -10, 0.5, 0)
             j.Frame.AnchorPoint = Vector2.new(1, 0.5)
-            j.Frame.Size = UDim2.fromOffset(160, 30)
+            j.Frame.Size = UDim2.fromOffset(80, 30)
             j.Input.Text = f.Default or ""
             j.Input.PlaceholderText = f.Placeholder or ""
             local k = j.Input
