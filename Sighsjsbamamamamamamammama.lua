@@ -1342,22 +1342,6 @@ local aa = {
             }
         )
 
-        o.Button =
-    l(
-    "ImageButton",
-    {
-        Image = "rbxassetid://1234567890", -- Replace with your image asset ID
-        Size = UDim2.new(0.15, 0, 1, 0), -- Adjust size for the image
-        Position = UDim2.new(0.85, 0, 0, 0), -- Position next to the input box
-        BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color (optional)
-        BackgroundTransparency = 0, -- Optional: Transparent background if not needed
-        Parent = o.Frame.Parent, -- Set parent to the parent of the Frame
-        ThemeTag = {ImageColor3 = "Text"}
-    },
-    {
-        l("UICorner", {CornerRadius = UDim.new(0, 4)}) -- Rounded corners
-    }
-            )
 
         o.Container =
             l(
@@ -1407,9 +1391,24 @@ local aa = {
                 o.Container
             }
         )
+                o.Button =
+    l(
+    "ImageButton",
+    {
+        Image = "rbxassetid://1234567890", -- Replace with your image asset ID
+        Size = UDim2.new(0.15, 0, 1, 0), -- Adjust size for the image
+        Position = UDim2.new(0.85, 0, 0, 0), -- Position next to the input box
+        BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color (optional)
+        BackgroundTransparency = 0, -- Optional: Transparent background if not needed
+        Parent = o.Frame.Parent, -- Set parent to the parent of the Frame
+        ThemeTag = {ImageColor3 = "Text"}
+    },
+    {
+        l("UICorner", {CornerRadius = UDim.new(0, 4)}) -- Rounded corners
+    }
+            )
 
-        -- Functionality for Input and Button
-        local p = function()
+         local p = function()
             local p, q = 2, o.Container.AbsoluteSize.X
             if not o.Input:IsFocused() or o.Input.TextBounds.X <= q - 2 * p then
                 o.Input.Position = UDim2.new(0, p, 0, 0)
