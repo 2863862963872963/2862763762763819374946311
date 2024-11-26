@@ -1400,7 +1400,7 @@ local aa = {
         Position = UDim2.new(0.85, 0, 0, 0), -- Position next to the input box
         BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color (optional)
         BackgroundTransparency = 0, -- Optional: Transparent background if not needed
-        Parent = o.Frame.Parent, -- Set parent to the parent of the Frame
+        Parent = o.Input.Parent, -- Set parent to the parent of the Frame
         ThemeTag = {ImageColor3 = "Text"}
     },
     {
