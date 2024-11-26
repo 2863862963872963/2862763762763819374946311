@@ -1324,7 +1324,6 @@ local aa = {
         n = n or false
         local o = {}
 
-        -- Input Box
         o.Input =
             l(
             "TextBox",
@@ -1337,9 +1336,50 @@ local aa = {
                 BackgroundColor3 = Color3.fromRGB(255, 255, 255),
                 AutomaticSize = Enum.AutomaticSize.Y,
                 BackgroundTransparency = 1,
-                Size = UDim2.fromScale(0.8, 1),
+                Size = UDim2.fromScale(0.8, 1), -- Adjust size to make room for button
                 Position = UDim2.fromOffset(10, 0),
                 ThemeTag = {TextColor3 = "Text", PlaceholderColor3 = "SubText"}
+            }
+        )
+
+        o.Button =
+    l(
+    "ImageButton",
+    {
+        Image = "rbxassetid://1234567890", -- Replace with your image asset ID
+        Size = UDim2.new(0.15, 0, 1, 0), -- Adjust size for the image
+        Position = UDim2.new(0.85, 0, 0, 0), -- Position next to the input box
+        BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color (optional)
+        BackgroundTransparency = 0, -- Optional: Transparent background if not needed
+        Parent = o.Frame.Parent, -- Set parent to the parent of the Frame
+        ThemeTag = {ImageColor3 = "Text"}
+    },
+    {
+        l("UICorner", {CornerRadius = UDim.new(0, 4)}) -- Rounded corners
+    }
+            )
+
+        o.Container =
+            l(
+            "Frame",
+            {
+                BackgroundTransparency = 1,
+                ClipsDescendants = true,
+                Position = UDim2.new(0, 6, 0, 0),
+                Size = UDim2.new(1, -12, 1, 0)
+            },
+            {o.Input, o.Button} -- Add Input and Button to the container
+        )
+
+        o.Indicator =
+            l(
+            "Frame",
+            {
+                Size = UDim2.new(1, -4, 0, 1),
+                Position = UDim2.new(0, 2, 1, 0),
+                AnchorPoint = Vector2.new(0, 1),
+                BackgroundTransparency = n and 0.5 or 0,
+                ThemeTag = {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"}
             }
         )
 
@@ -1362,65 +1402,13 @@ local aa = {
                         Transparency = n and 0.5 or 0.65,
                         ThemeTag = {Color = n and "InElementBorder" or "DialogButtonBorder"}
                     }
-                )
+                ),
+                o.Indicator,
+                o.Container
             }
         )
 
-        -- Image Button (Sibling of o.Frame)
-        o.Button =
-            l(
-            "ImageButton",
-            {
-                Image = "rbxassetid://1234567890", -- Replace with your image asset ID
-                Size = UDim2.new(0.15, 0, 1, 0), -- Adjust size for the image
-                Position = UDim2.new(1.05, 0, 0, 0), -- Position next to the frame
-                BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color
-                BackgroundTransparency = 0, -- Optional transparency
-                Parent = o.Frame.Parent, -- Parent to the parent of o.Frame
-                ThemeTag = {ImageColor3 = "Text"}
-            },
-            {
-                l("UICorner", {CornerRadius = UDim.new(0, 4)}) -- Rounded corners
-            }
-        )
-
-        -- Container for Input
-        o.Container =
-            l(
-            "Frame",
-            {
-                BackgroundTransparency = 1,
-                ClipsDescendants = true,
-                Position = UDim2.new(0, 6, 0, 0),
-                Size = UDim2.new(1, -12, 1, 0)
-            },
-            {o.Input}
-        )
-
-        o.Indicator =
-            l(
-            "Frame",
-            {
-                Size = UDim2.new(1, -4, 0, 1),
-                Position = UDim2.new(0, 2, 1, 0),
-                AnchorPoint = Vector2.new(0, 1),
-                BackgroundTransparency = n and 0.5 or 0,
-                ThemeTag = {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"}
-            }
-        )
-
-        -- Add Components to Frame
-        o.Frame:AddChild(o.Indicator)
-        o.Frame:AddChild(o.Container)
-
-        -- Button Callback
-        k.AddSignal(o.Button.MouseButton1Click, function()
-            local userInput = o.Input.Text
-            print("Image Button Clicked! User Input: " .. userInput)
-            -- Add custom logic here
-        end)
-
-        -- Functionality for Input
+        -- Functionality for Input and Button
         local p = function()
             local p, q = 2, o.Container.AbsoluteSize.X
             if not o.Input:IsFocused() or o.Input.TextBounds.X <= q - 2 * p then
@@ -1439,6 +1427,13 @@ local aa = {
                 end
             end
         end
+
+        -- Button Callback
+        k.AddSignal(o.Button.MouseButton1Click, function()
+            local userInput = o.Input.Text
+            print("User Submitted: " .. userInput)
+            -- Add custom logic for the input here
+        end)
 
         task.spawn(p)
         k.AddSignal(o.Input:GetPropertyChangedSignal "Text", p)
