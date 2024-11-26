@@ -1324,6 +1324,7 @@ local aa = {
         n = n or false
         local o = {}
 
+        -- Input Box
         o.Input =
             l(
             "TextBox",
@@ -1339,47 +1340,6 @@ local aa = {
                 Size = UDim2.fromScale(0.8, 1), -- Adjust size to make room for button
                 Position = UDim2.fromOffset(10, 0),
                 ThemeTag = {TextColor3 = "Text", PlaceholderColor3 = "SubText"}
-            }
-        )
-
-        o.Button =
-    l(
-    "ImageButton",
-    {
-        Image = "rbxassetid://1234567890", -- Replace with your image asset ID
-        Size = UDim2.new(0.15, 0, 1, 0), -- Adjust size for the image
-        Position = UDim2.new(0.85, 0, 0, 0), -- Position next to the input box
-        BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color (optional)
-        BackgroundTransparency = 0, -- Optional: Transparent background if not needed
-        Parent = o.Frame.Parent, -- Set parent to the parent of the Frame
-        ThemeTag = {ImageColor3 = "Text"}
-    },
-    {
-        l("UICorner", {CornerRadius = UDim.new(0, 4)}) -- Rounded corners
-    }
-            )
-
-        o.Container =
-            l(
-            "Frame",
-            {
-                BackgroundTransparency = 1,
-                ClipsDescendants = true,
-                Position = UDim2.new(0, 6, 0, 0),
-                Size = UDim2.new(1, -12, 1, 0)
-            },
-            {o.Input, o.Button} -- Add Input and Button to the container
-        )
-
-        o.Indicator =
-            l(
-            "Frame",
-            {
-                Size = UDim2.new(1, -4, 0, 1),
-                Position = UDim2.new(0, 2, 1, 0),
-                AnchorPoint = Vector2.new(0, 1),
-                BackgroundTransparency = n and 0.5 or 0,
-                ThemeTag = {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"}
             }
         )
 
@@ -1402,11 +1362,56 @@ local aa = {
                         Transparency = n and 0.5 or 0.65,
                         ThemeTag = {Color = n and "InElementBorder" or "DialogButtonBorder"}
                     }
-                ),
-                o.Indicator,
-                o.Container
+                )
             }
         )
+
+        -- Image Button (Placed after the Frame's Parent is Defined)
+        o.Button =
+            l(
+            "ImageButton",
+            {
+                Image = "rbxassetid://1234567890", -- Replace with your image asset ID
+                Size = UDim2.new(0.15, 0, 1, 0), -- Adjust size for the image
+                Position = UDim2.new(0.85, 0, 0, 0), -- Position next to the input box
+                BackgroundColor3 = Color3.fromRGB(100, 100, 200), -- Background color (optional)
+                BackgroundTransparency = 0, -- Optional: Transparent background if not needed
+                Parent = o.Frame.Parent, -- Set parent to the parent of the Frame
+                ThemeTag = {ImageColor3 = "Text"}
+            },
+            {
+                l("UICorner", {CornerRadius = UDim.new(0, 4)}) -- Rounded corners
+            }
+        )
+
+        -- Container for Input
+        o.Container =
+            l(
+            "Frame",
+            {
+                BackgroundTransparency = 1,
+                ClipsDescendants = true,
+                Position = UDim2.new(0, 6, 0, 0),
+                Size = UDim2.new(1, -12, 1, 0)
+            },
+            {o.Input}
+        )
+
+        o.Indicator =
+            l(
+            "Frame",
+            {
+                Size = UDim2.new(1, -4, 0, 1),
+                Position = UDim2.new(0, 2, 1, 0),
+                AnchorPoint = Vector2.new(0, 1),
+                BackgroundTransparency = n and 0.5 or 0,
+                ThemeTag = {BackgroundColor3 = n and "InputIndicator" or "DialogInputLine"}
+            }
+        )
+
+        -- Add Components to Frame
+        o.Frame:AddChild(o.Indicator)
+        o.Frame:AddChild(o.Container)
 
         -- Functionality for Input and Button
         local p = function()
@@ -1464,6 +1469,7 @@ local aa = {
         return o
     end
 end,
+    
     [16] = function()
         local c, d, e, f, g = b(16)
         local h, i = d.Parent.Parent, e(d.Parent.Assets)
