@@ -3111,7 +3111,7 @@ end,
             h.SetTitle = i.SetTitle
             h.SetDesc = i.SetDesc
             local j = ac(aj.Textbox)(i.Frame, true)
-            j.Frame.Position = UDim2.new(0.94, -10, 0.5, 0)
+            j.Frame.Position = UDim2.new(0.92, -10, 0.5, 0)
             j.Frame.AnchorPoint = Vector2.new(1, 0.5)
             j.Frame.Size = UDim2.fromOffset(80, 30)
             j.Input.Text = f.Default or ""
