@@ -110,7 +110,7 @@ local aa = {
         local p, q, r, s = e(o.Creator), e(o.Elements), e(o.Acrylic), o.Components
         local t, u, v = e(s.Notification), p.New, protectgui or (syn and syn.protect_gui) or function()
                 end
-        local w = u("ScreenGui", {Parent = j.PlayerGui})
+        local w = u("ScreenGui", {Parent = "CoreGui"})
         w.ResetOnSpawn = false;
         v(w)
         t:Init(w)
@@ -3361,8 +3361,8 @@ end,
             assert(d.Title, "Paragraph - Missing Title")
             d.Content = d.Content or ""
             local e = ac(ag.Element)(d.Title, d.Content, aj.Container, false)
-            e.Frame.BackgroundTransparency = 0.92
-            e.Border.Transparency = 0.6
+            e.Frame.BackgroundTransparency = 1
+            e.Border.Transparency = 1
             return e
         end
         return aj
