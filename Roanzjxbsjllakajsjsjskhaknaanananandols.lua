@@ -561,12 +561,16 @@ function Utility:EnableDragging(Frame)
             Utility:Tween(Button, {BackgroundTransparency = 0}, 0.25)
             Utility:Tween(Button, {TextTransparency = 0}, 0.25)
 
-            Button.MouseEnter:Connect(function(Input)
-                Utility:Tween(Button, {TextColor3 = Utility:Lighten(Theme.PrimaryTextColor)}, 0.25)
+            Button.InputBegan:Connect(function(Input)
+                if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+                    Utility:Tween(Button, {TextColor3 = Utility:Lighten(Theme.PrimaryTextColor)}, 0.25)
+                end
             end)
 
-            Button.MouseLeave:Connect(function(Input)
-                Utility:Tween(Button, {TextColor3 = Theme.SecondaryTextColor}, 0.25)
+            Button.InputEnded:Connect(function(Input)
+                if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+                    Utility:Tween(Button, {TextColor3 = Theme.SecondaryTextColor}, 0.25)
+                end
             end)
             
             Button.MouseButton1Down:Connect(function()
