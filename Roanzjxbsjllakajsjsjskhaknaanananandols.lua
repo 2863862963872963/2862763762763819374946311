@@ -10,7 +10,7 @@ local HttpService = game:GetService('HttpService')
 -- // Variables
 getgenv().kms = false
 local Ihatethisui = {}
-local UIName = 'Visual UI Library | .gg/puxxCphTnK'
+local UIName = 'Visual UI Library'
 local Amount = 0
 local ConfigF
 local BreakAllLoops = false
@@ -271,39 +271,43 @@ do
         end
     end
 
-    function Utility:EnableDragging(Frame)
-        local Dragging, DraggingInput, DragStart, StartPosition
-        
-        local function Update(Input)
-            local Delta = Input.Position - DragStart
-            Frame.Position = UDim2.new(StartPosition.X.Scale, StartPosition.X.Offset + Delta.X, StartPosition.Y.Scale, StartPosition.Y.Offset + Delta.Y)
+
+function Utility:EnableDragging(Frame)
+    local Dragging, DraggingInput, DragStart, StartPosition
+    
+    local function Update(Input)
+        local Delta = Input.Position - DragStart
+        Frame.Position = UDim2.new(
+            StartPosition.X.Scale, StartPosition.X.Offset + Delta.X,
+            StartPosition.Y.Scale, StartPosition.Y.Offset + Delta.Y
+        )
+    end
+    
+    Frame.InputBegan:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseButton1 or Input.UserInputType == Enum.UserInputType.Touch then
+            Dragging = true
+            DragStart = Input.Position
+            StartPosition = Frame.Position
+            
+            Input.Changed:Connect(function()
+                if Input.UserInputState == Enum.UserInputState.End then
+                    Dragging = false
+                end
+            end)
         end
-        
-        Frame.InputBegan:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-                Dragging = true
-                DragStart = Input.Position
-                StartPosition = Frame.Position
-        
-                Input.Changed:Connect(function()
-                    if Input.UserInputState == Enum.UserInputState.End then
-                        Dragging = false
-                    end
-                end)
-            end
-        end)
-        
-        Frame.InputChanged:Connect(function(Input)
-            if Input.UserInputType == Enum.UserInputType.MouseMovement then
-                DraggingInput = Input
-            end
-        end)
-        
-        UserInputService.InputChanged:Connect(function(Input)
-            if Input == DraggingInput and Dragging then
-                Update(Input)
-            end
-        end)
+    end)
+    
+    Frame.InputChanged:Connect(function(Input)
+        if Input.UserInputType == Enum.UserInputType.MouseMovement or Input.UserInputType == Enum.UserInputType.Touch then
+            DraggingInput = Input
+        end
+    end)
+    
+    UserInputService.InputChanged:Connect(function(Input)
+        if Input == DraggingInput and Dragging then
+            Update(Input)
+        end
+    end)
     end
 
     function Utility:Create(_Instance, Properties, Children)
