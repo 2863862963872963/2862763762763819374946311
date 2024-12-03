@@ -2350,19 +2350,21 @@ function Library:CreateWindow(HubName, GameName, IntroText, IntroIcon, ImprovePe
                     end)
                 end)
 
-                SliderHolder.InputBegan:Connect(function()
-                if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-                    Hovering = true
-                    Utility:Tween(SliderHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
-                    end
-                end)
+    SliderHolder.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        Hovering = true
+        Utility:Tween(SliderHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
+    end
+end)
 
-                SliderHolder.InputEnded:Connect(function()
-                if endInput.UserInputType == Enum.UserInputType.MouseButton1 or endInput.UserInputType == Enum.UserInputType.Touch then
-                    Utility:Tween(SliderHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-                    Hovering = false
-                    end
-                end)
+SliderHolder.InputEnded:Connect(function(endInput)
+    if (endInput.UserInputType == Enum.UserInputType.MouseButton1 or endInput.UserInputType == Enum.UserInputType.Touch) then
+        if not SliderHolder:IsPointInRegion3(SliderHolder.AbsolutePosition) then
+            Utility:Tween(SliderHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
+            Hovering = false
+        end
+    end
+end)
 
                 function SliderFunctions:Set(Value)
                     SliderNumber.Text = tostring(Value and math.floor((Value / MaximumValue) * (MaximumValue - MinimumValue) + MinimumValue))
@@ -2372,7 +2374,7 @@ function Library:CreateWindow(HubName, GameName, IntroText, IntroIcon, ImprovePe
                 ConfigUpdates[Name] = SliderFunctions
                 return SliderFunctions
             end
-
+            
             function Elements:CreateTextbox(Name, Placeholder, Callback)
                 local Name = Name or 'Textbox'
                 local Placeholder = Placeholder or 'Input'
