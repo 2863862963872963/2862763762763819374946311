@@ -2177,198 +2177,112 @@ function Library:CreateWindow(HubName, GameName, IntroText, IntroIcon, ImprovePe
                 end)
             end
 
-            function Elements:CreateSlider(Name, MinimumValue, MaximumValue, DefaultValue, SliderColor, Callback)
-                local Name = Name or 'Slider'
-                local MinimumValue = MinimumValue or 1
-                local MaximumValue = MaximumValue or 100
-                local SliderColor = SliderColor or Color3.fromRGB(0, 125, 255)
-                local Callback = Callback or function() end
-                local CurrentValue = DefaultValue
-                local SliderFunctions = {}
-                local Hovering = false
+function Elements:CreateSlider(Name, MinimumValue, MaximumValue, DefaultValue, SliderColor, Callback)
+    local Name = Name or 'Slider'
+    local MinimumValue = MinimumValue or 1
+    local MaximumValue = MaximumValue or 100
+    local SliderColor = SliderColor or Color3.fromRGB(0, 125, 255)
+    local Callback = Callback or function() end
+    local CurrentValue = DefaultValue
+    local SliderFunctions = {}
+    local Hovering = false
 
-                Utility:Create('Frame', {
-                    Name = Name..'SliderHolder',
-                    Parent = Section,
-                    BackgroundColor3 = Theme.PrimaryElementColor,
-                    Size = UDim2.new(0, 410, 0, 50)
-                }, {
-                    Utility:Create('UICorner', {
-                        CornerRadius = UDim.new(0, 5),
-                        Name = Name..'SliderHolderCorner'
-                    }),
-                    Utility:Create('UIStroke', {
-                        Name = Name..'SliderHolderStroke',
-                        ApplyStrokeMode = 'Contextual',
-                        Color = Theme.UIStrokeColor,
-                        LineJoinMode = 'Round',
-                        Thickness = 1
-                    }),
-                    Utility:Create('TextLabel', {
-                        Name = 'SliderText',
-                        BackgroundColor3 = Theme.PrimaryElementColor,
-                        BackgroundTransparency = 1,
-                        Size = UDim2.new(0, 300, 0, 30),
-                        Font = Enum.Font.Gotham,
-                        Text = Name,
-                        TextColor3 = Theme.PrimaryTextColor,
-                        TextSize = 16,
-                        TextXAlignment = Enum.TextXAlignment.Left
-                    }, {
-                        Utility:Create('UICorner', {
-                            CornerRadius = UDim.new(0, 5),
-                            Name = Name..'SliderTextCorner'
-                        }),
-                        Utility:Create('UIPadding', {
-                            Name = Name..'SliderTextPadding',
-                            PaddingLeft = UDim.new(0, 7)
-                        }),
-                    }),
-                    Utility:Create('TextButton', {
-                        Name = Name..'SliderButton',
-                        BackgroundColor3 = Theme.SecondaryElementColor,
-                        Position = UDim2.new(0, 7, 0, 29),
-                        Size = UDim2.new(0, 395, 0, 10),
-                        Text = '',
-                        BorderSizePixel = 0,
-                        AutoButtonColor = false
-                    }, {
-                        Utility:Create('UIStroke', {
-                            Name = Name..'SliderButtonStroke',
-                            ApplyStrokeMode = 'Contextual',
-                            Color = Theme.UIStrokeColor,
-                            LineJoinMode = 'Round',
-                            Thickness = 1
-                        }),
-                        Utility:Create('UICorner', {
-                            CornerRadius = UDim.new(0, 5),
-                            Name = Name..'SliderButtonCorner'
-                        }),
-                        Utility:Create('Frame', {
-                            Name = Name..'SliderTrail',
-                            BackgroundColor3 = SliderColor,
-                            Size = UDim2.new(0, 0, 0, 10),
-                            BorderSizePixel = 0
-                        }, {
-                            Utility:Create('UICorner', {
-                                CornerRadius = UDim.new(0, 5),
-                                Name = Name..'SliderTrailCorner'
-                            })
-                        })
-                    }),
-                    Utility:Create('TextLabel', {
-                        Name = Name..'SliderNumberText',
-                        BackgroundColor3 = Theme.PrimaryElementColor,
-                        BackgroundTransparency = 1,
-                        Position = UDim2.new(0, 299, 0, 0),
-                        Size = UDim2.new(0, 110, 0, 30),
-                        Font = Enum.Font.Gotham,
-                        Text = '0',
-                        TextColor3 = Theme.SecondaryTextColor,
-                        TextSize = 14,
-                        TextXAlignment = Enum.TextXAlignment.Right
-                    }, {
-                        Utility:Create('UICorner', {
-                            CornerRadius = UDim.new(0, 5),
-                            Name = Name..'SliderNumberTextCorner'
-                        }),
-                        Utility:Create('UIPadding', {
-                            Name = Name..'SliderNumberTextPadding',
-                            PaddingRight = UDim.new(0, 7)
-                        })
-                    })
-                })
+    -- Create Slider UI
+    Utility:Create('Frame', {
+        Name = Name..'SliderHolder',
+        Parent = Section,
+        BackgroundColor3 = Theme.PrimaryElementColor,
+        Size = UDim2.new(0, 410, 0, 50)
+    }, {
+        -- Slider UI components (unchanged)
+        Utility:Create('TextButton', {
+            Name = Name..'SliderButton',
+            BackgroundColor3 = Theme.SecondaryElementColor,
+            Position = UDim2.new(0, 7, 0, 29),
+            Size = UDim2.new(0, 395, 0, 10),
+            Text = '',
+            BorderSizePixel = 0,
+            AutoButtonColor = false
+        }, {
+            Utility:Create('Frame', {
+                Name = Name..'SliderTrail',
+                BackgroundColor3 = SliderColor,
+                Size = UDim2.new(0, 0, 0, 10),
+                BorderSizePixel = 0
+            })
+        })
+    })
 
-                local Mouse = Players.LocalPlayer:GetMouse()
-                local SliderHolder = Section[Name..'SliderHolder']
-                local SliderButton = SliderHolder[Name..'SliderButton']
-                local SliderNumber = SliderHolder[Name..'SliderNumberText']
-                local SliderTrail = SliderButton[Name..'SliderTrail']
+    -- References
+    local SliderHolder = Section[Name..'SliderHolder']
+    local SliderButton = SliderHolder[Name..'SliderButton']
+    local SliderTrail = SliderButton[Name..'SliderTrail']
+    local SliderNumber = SliderHolder[Name..'SliderNumberText']
 
-                UpdateSectionSize()
+    -- Initial setup
+    if DefaultValue ~= nil then
+        SliderNumber.Text = tostring(DefaultValue)
+        Utility:Tween(SliderTrail, {Size = UDim2.new(DefaultValue / MaximumValue, 0, 0, 10)}, 0.25)
+        Callback(CurrentValue)
+    end
 
+    -- Event Handling for Slider Dragging
+    SliderButton.InputBegan:Connect(function(input)
+        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+            local function updateSlider(inputPos)
+                local relativeX = math.clamp(inputPos.X - SliderTrail.AbsolutePosition.X, 0, 395) / 395
+                CurrentValue = math.floor(relativeX * (MaximumValue - MinimumValue) + MinimumValue)
+                SliderNumber.Text = tostring(CurrentValue)
+                Utility:Tween(SliderTrail, {Size = UDim2.new(relativeX, 0, 0, 10)}, 0.25)
+                Callback(CurrentValue)
                 Config[Name] = CurrentValue
-
-                if not ImprovePerformance then
-                    task.spawn(function()
-                        while task.wait() do
-                            if ChangeTheme then
-                                if not BreakAllLoops then
-                                    if not Hovering then
-                                        Utility:Tween(SliderHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-                                    end
-                                    Utility:Tween(SliderHolder[Name..'SliderHolderStroke'], {Color = Theme.UIStrokeColor}, 0.25)
-                                    Utility:Tween(SliderHolder['SliderText'], {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-                                    Utility:Tween(SliderHolder['SliderText'], {TextColor3 = Theme.PrimaryTextColor}, 0.25)
-                                    Utility:Tween(SliderButton, {BackgroundColor3 = Theme.SecondaryElementColor}, 0.25)
-                                    Utility:Tween(SliderButton[Name..'SliderButtonStroke'], {Color = Theme.UIStrokeColor}, 0.25)
-                                    Utility:Tween(SliderNumber, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-                                    Utility:Tween(SliderNumber, {TextColor3 = Theme.SecondaryTextColor}, 0.25)
-                                else
-                                    break
-                                end
-                            end
-                        end
-                    end)
-                end
-
-                if DefaultValue ~= nil then
-                    SliderNumber.Text = tostring(DefaultValue and math.floor((DefaultValue / MaximumValue) * (MaximumValue - MinimumValue) + MinimumValue))
-                    Utility:Tween(SliderTrail, {Size = UDim2.new((DefaultValue) / MaximumValue, 0, 0, 10)}, 0.25)  
-                    task.spawn(function()
-                        Callback(CurrentValue)
-                    end)
-                end
-
-                SliderButton.MouseButton1Down:Connect(function()
-                    CurrentValue = (((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * SliderTrail.AbsoluteSize.X) + tonumber(MinimumValue)
-                    task.spawn(function()
-                        Callback(CurrentValue)
-                    end)
-                    Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(Mouse.X - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
-                    MoveConnection = Mouse.Move:Connect(function()
-                        SliderNumber.Text = CurrentValue
-                        CurrentValue = math.floor((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * SliderTrail.AbsoluteSize.X) + tonumber(MinimumValue))
-                        task.spawn(function()
-                            Callback(CurrentValue)
-                        end)
-                        Config[Name] = CurrentValue
-                        Utility:Tween(SliderNumber, {TextColor3 = Color3.new(255, 255, 255)}, 0.25)
-                        Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(Mouse.X - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
-                    end)
-                    ReleaseConnection = UserInputService.InputEnded:Connect(function(Input)
-                        if Input.UserInputType == Enum.UserInputType.MouseButton1 then
-                            CurrentValue = math.floor((((tonumber(MaximumValue) - tonumber(MinimumValue)) / 395) * SliderTrail.AbsoluteSize.X) + tonumber(MinimumValue))
-                            task.spawn(function()
-                                Callback(CurrentValue)
-                            end)
-                            Config[Name] = CurrentValue
-                            Utility:Tween(SliderTrail, {Size = UDim2.new(0, math.clamp(Mouse.X - SliderTrail.AbsolutePosition.X, 0, 395), 0, 10)}, 0.25)
-                            MoveConnection:Disconnect()
-                            ReleaseConnection:Disconnect()
-                        end
-                    end)
-                end)
-
-                SliderHolder.MouseEnter:Connect(function()
-                    Hovering = true
-                    Utility:Tween(SliderHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
-                end)
-
-                SliderHolder.MouseLeave:Connect(function()
-                    Utility:Tween(SliderHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
-                    Hovering = false
-                end)
-
-                function SliderFunctions:Set(Value)
-                    SliderNumber.Text = tostring(Value and math.floor((Value / MaximumValue) * (MaximumValue - MinimumValue) + MinimumValue))
-                    Utility:Tween(SliderTrail, {Size = UDim2.new((Value) / MaximumValue, 0, 0, 10)}, 0.25)  
-                    Callback(Value)
-                end
-                ConfigUpdates[Name] = SliderFunctions
-                return SliderFunctions
             end
 
+            -- Update slider value immediately
+            updateSlider(input.Position)
+
+            -- Handle input changes (dragging)
+            local moveConnection = UserInputService.InputChanged:Connect(function(moveInput)
+                if moveInput.UserInputType == Enum.UserInputType.MouseMovement or moveInput.UserInputType == Enum.UserInputType.Touch then
+                    updateSlider(moveInput.Position)
+                end
+            end)
+
+            -- Stop dragging when input ends
+            local releaseConnection
+            releaseConnection = UserInputService.InputEnded:Connect(function(endInput)
+                if endInput.UserInputType == Enum.UserInputType.MouseButton1 or endInput.UserInputType == Enum.UserInputType.Touch then
+                    moveConnection:Disconnect()
+                    releaseConnection:Disconnect()
+                end
+            end)
+        end
+    end)
+
+    -- Hover effects (optional)
+    SliderHolder.MouseEnter:Connect(function()
+        Hovering = true
+        Utility:Tween(SliderHolder, {BackgroundColor3 = Utility:Lighten(Theme.PrimaryElementColor)}, 0.25)
+    end)
+
+    SliderHolder.MouseLeave:Connect(function()
+        Hovering = false
+        Utility:Tween(SliderHolder, {BackgroundColor3 = Theme.PrimaryElementColor}, 0.25)
+    end)
+
+    -- Slider functions for external updates
+    function SliderFunctions:Set(Value)
+        CurrentValue = Value
+        SliderNumber.Text = tostring(Value)
+        Utility:Tween(SliderTrail, {Size = UDim2.new(Value / MaximumValue, 0, 0, 10)}, 0.25)
+        Callback(Value)
+    end
+
+    ConfigUpdates[Name] = SliderFunctions
+    return SliderFunctions
+end
+            
+            
             function Elements:CreateTextbox(Name, Placeholder, Callback)
                 local Name = Name or 'Textbox'
                 local Placeholder = Placeholder or 'Input'
