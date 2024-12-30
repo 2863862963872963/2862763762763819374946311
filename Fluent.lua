@@ -28,7 +28,10 @@ ImageButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 ImageButton.BorderSizePixel = 0
 ImageButton.Position = UDim2.new(0.1208, 0, 0.0953, 0)
 ImageButton.Size = UDim2.new(0, 50, 0, 50)
-ImageButton.Image = "rbxassetid://7725517348"
+ImageButton.Draggable = true
+
+local imageIds = {"rbxassetid://75611225237666", "rbxassetid://77255173481760"}
+ImageButton.Image = imageIds[math.random(1, #imageIds)]
 
 ImageButton.MouseButton1Down:Connect(function()
     local success, err = pcall(function()
