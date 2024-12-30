@@ -10,7 +10,7 @@
 --]]
 
 for _, v in ipairs(game.CoreGui:GetDescendants()) do
-    if v:IsA("ScreenGui") and string.find(v.Name, "FluentRenewed") and v.Name == "Sisch" then
+    if v:IsA("ScreenGui") and v.Name == "Sisch" then
         v:Destroy()
     end
 end
