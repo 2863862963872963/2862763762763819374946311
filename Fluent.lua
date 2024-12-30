@@ -9,7 +9,7 @@
     GitHub: https://github.com/ActualMasterOogway/Fluent-Renewed
 --]]
 
-for _, v in ipairs(game.CoreGui:GetDescendants()) do
+for _, v in ipairs(game.CoreGui:GetChildren()) do
     if v:IsA("ScreenGui") and v.Name == "Sisch" then
         v:Destroy()
     end
