@@ -9,8 +9,8 @@
     GitHub: https://github.com/ActualMasterOogway/Fluent-Renewed
 --]]
 
-for _, v in pairs(game.CoreGui:GetChildren()) do
-    if v:IsA("ScreenGui") and v.Name == "Sisch" then
+for _, v in ipairs(game.CoreGui:GetChildren()) do
+    if v:IsA("ScreenGui") and v.Name == "DTHEFUCKAA" then
         v:Destroy()
     end
 end
@@ -19,7 +19,7 @@ local ScreenGui = Instance.new("ScreenGui")
 local ImageButton = Instance.new("ImageButton")
 local UICorner = Instance.new("UICorner")
 
-ScreenGui.Name = "Sisch"
+ScreenGui.Name = "DTHEFUCKAA"
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
