@@ -12,9 +12,10 @@ ScreenGui.ResetOnSpawn = false
 -- Console Frame
 local ConsoleFrame = Instance.new("Frame")
 ConsoleFrame.Size = UDim2.new(0.5, 0, 0.3, 0)
-ConsoleFrame.Position = UDim2.new(0.25, 0, -0.35, 0) -- Hidden at start
+ConsoleFrame.Position = UDim2.new(0.25, 0, 0.05, 0)
 ConsoleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
 ConsoleFrame.BorderSizePixel = 0
+ConsoleFrame.Visible = false -- Start hidden
 ConsoleFrame.Parent = ScreenGui
 
 -- UIListLayout for Logs
@@ -31,8 +32,6 @@ ToggleButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
 ToggleButton.Text = "📜 Console"
 ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleButton.Parent = ScreenGui
-
-
 
 -- Convert Any Data Type to String
 local function toString(...)
@@ -84,8 +83,7 @@ end
 local ConsoleVisible = false
 ToggleButton.MouseButton1Click:Connect(function()
     ConsoleVisible = not ConsoleVisible
-    ConsoleFrame.Position = ConsoleVisible and UDim2.new(0.25, 0, 0.05, 0) or UDim2.new(0.25, 0, -0.35, 0)
-        Console:print("ok")
+    ConsoleFrame.Visible = ConsoleVisible -- Just show/hide instead of moving
 end)
 
 return Console
