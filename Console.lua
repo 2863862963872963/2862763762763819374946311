@@ -67,17 +67,26 @@ local function logMessage(text, color)
     LogBox.CanvasSize = UDim2.new(0, 0, 0, LogBox.UIListLayout.AbsoluteContentSize.Y)
 end
 
+local function toString(...)
+    local args = {...}
+    for i = 1, #args do
+        args[i] = tostring(args[i])
+    end
+    return table.concat(args, " ")
+end
+
 Console.print = function(...)
-    logMessage("[LOG] " .. table.concat({...}, " "), Color3.fromRGB(0, 255, 0))
+    logMessage("[LOG] " .. toString(...), Color3.fromRGB(0, 255, 0))
 end
 
 Console.warn = function(...)
-    logMessage("[WARN] " .. table.concat({...}, " "), Color3.fromRGB(255, 255, 0))
+    logMessage("[WARN] " .. toString(...), Color3.fromRGB(255, 255, 0))
 end
 
 Console.error = function(...)
-    logMessage("[ERROR] " .. table.concat({...}, " "), Color3.fromRGB(255, 0, 0))
+    logMessage("[ERROR] " .. toString(...), Color3.fromRGB(255, 0, 0))
 end
+
 
 Console.clear = function()
     for _, child in pairs(LogBox:GetChildren()) do
