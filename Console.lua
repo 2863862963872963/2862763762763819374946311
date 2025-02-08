@@ -32,12 +32,7 @@ ToggleButton.Text = "📜 Console"
 ToggleButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 ToggleButton.Parent = ScreenGui
 
--- Console Toggle Function
-local ConsoleVisible = false
-ToggleButton.MouseButton1Click:Connect(function()
-    ConsoleVisible = not ConsoleVisible
-    ConsoleFrame.Position = ConsoleVisible and UDim2.new(0.25, 0, 0.05, 0) or UDim2.new(0.25, 0, -0.35, 0)
-end)
+
 
 -- Convert Any Data Type to String
 local function toString(...)
@@ -62,11 +57,6 @@ local function logMessage(msg, color)
     Label.TextScaled = true
     Label.Font = Enum.Font.Code
     Label.Parent = ConsoleFrame
-
-    -- Auto-remove after 10 seconds
-    task.delay(10, function()
-        Label:Destroy()
-    end)
 end
 
 -- Console Functions
@@ -89,5 +79,12 @@ function Console:clear()
         end
     end
 end
+
+-- Console Toggle Function
+local ConsoleVisible = false
+ToggleButton.MouseButton1Click:Connect(function()
+    ConsoleVisible = not ConsoleVisible
+    ConsoleFrame.Position = ConsoleVisible and UDim2.new(0.25, 0, 0.05, 0) or UDim2.new(0.25, 0, -0.35, 0)
+end)
 
 return Console
