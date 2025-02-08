@@ -85,6 +85,7 @@ local ConsoleVisible = false
 ToggleButton.MouseButton1Click:Connect(function()
     ConsoleVisible = not ConsoleVisible
     ConsoleFrame.Position = ConsoleVisible and UDim2.new(0.25, 0, 0.05, 0) or UDim2.new(0.25, 0, -0.35, 0)
+        Console:print("ok")
 end)
 
 return Console
