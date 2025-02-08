@@ -34,8 +34,8 @@ local LogFrame = Instance.new("ScrollingFrame")
 LogFrame.Size = UDim2.new(1, 0, 0.9, 0)
 LogFrame.Position = UDim2.new(0, 0, 0.1, 0)
 LogFrame.CanvasSize = UDim2.new(0, 0, 0, 0)
-LogFrame.ScrollingDirection = Enum.ScrollingDirection.Y
-LogFrame.ScrollBarThickness = 5
+LogFrame.ScrollingDirection = Enum.ScrollingDirection.Y -- ✅ Fixed
+LogFrame.ScrollBarThickness = 0
 LogFrame.BackgroundTransparency = 1
 LogFrame.Parent = ConsoleFrame
 
