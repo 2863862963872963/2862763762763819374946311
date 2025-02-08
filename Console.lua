@@ -1,9 +1,12 @@
 local Console = {}
 
+local HttpService = game:GetService("HttpService")
+local UserInputService = game:GetService("UserInputService")
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game:GetService("CoreGui") or game.Players.LocalPlayer:FindFirstChild("PlayerGui")
 ScreenGui.ResetOnSpawn = false
 
+-- Main Console UI
 local Frame = Instance.new("Frame")
 Frame.Size = UDim2.new(0.5, 0, 0.4, 0)
 Frame.Position = UDim2.new(0.25, 0, 0.1, 0)
@@ -12,6 +15,7 @@ Frame.BorderSizePixel = 2
 Frame.Visible = false
 Frame.Parent = ScreenGui
 
+-- Title Bar
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, 0, 0.1, 0)
 Title.BackgroundTransparency = 1
@@ -21,6 +25,7 @@ Title.Font = Enum.Font.SourceSansBold
 Title.TextSize = 18
 Title.Parent = Frame
 
+-- Close Button
 local CloseButton = Instance.new("TextButton")
 CloseButton.Size = UDim2.new(0.1, 0, 0.1, 0)
 CloseButton.Position = UDim2.new(0.9, 0, 0, 0)
@@ -30,6 +35,7 @@ CloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 CloseButton.Font = Enum.Font.SourceSansBold
 CloseButton.Parent = Frame
 
+-- Log Box (Scrolling Frame)
 local LogBox = Instance.new("ScrollingFrame")
 LogBox.Size = UDim2.new(1, 0, 0.9, 0)
 LogBox.Position = UDim2.new(0, 0, 0.1, 0)
@@ -52,20 +58,7 @@ MobileToggle.Font = Enum.Font.SourceSansBold
 MobileToggle.TextSize = 14
 MobileToggle.Parent = ScreenGui
 
--- Log function
-local function logMessage(text, color)
-    local LogLabel = Instance.new("TextLabel")
-    LogLabel.Size = UDim2.new(1, 0, 0, 20)
-    LogLabel.BackgroundTransparency = 1
-    LogLabel.Text = text
-    LogLabel.TextColor3 = color
-    LogLabel.Font = Enum.Font.SourceSans
-    LogLabel.TextSize = 14
-    LogLabel.TextWrapped = true
-    LogLabel.Parent = LogBox
-    LogBox.CanvasSize = UDim2.new(0, 0, 0, LogBox.UIListLayout.AbsoluteContentSize.Y)
-end
-
+-- Function to Convert Values to String
 local function toString(...)
     local args = {...}
     for i = 1, #args do
@@ -85,13 +78,18 @@ local function logMessage(msg, color)
     Label.BackgroundTransparency = 1
     Label.TextColor3 = color
     Label.Text = msg
-    Label.TextScaled = true
+    Label.TextScaled = false
+    Label.TextWrapped = true
     Label.Font = Enum.Font.Code
-    Label.Parent = ConsoleFrame
+    Label.Parent = LogBox
+
+    -- Update Scrolling
+    LogBox.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
 
     -- Auto-remove after 10 seconds
     task.delay(10, function()
         Label:Destroy()
+        LogBox.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y)
     end)
 end
 
@@ -109,24 +107,23 @@ function Console:error(...)
 end
 
 function Console:clear()
-    for _, v in pairs(ConsoleFrame:GetChildren()) do
+    for _, v in pairs(LogBox:GetChildren()) do
         if v:IsA("TextLabel") then
             v:Destroy()
         end
     end
+    LogBox.CanvasSize = UDim2.new(0, 0, 0, 0) -- Reset Scroll
 end
 
--- Toggle visibility
-local toggleKey = Enum.KeyCode.F2
+-- Toggle Console Visibility
 local isVisible = false
-
 local function toggleConsole()
     isVisible = not isVisible
     Frame.Visible = isVisible
 end
 
-game:GetService("UserInputService").InputBegan:Connect(function(input, processed)
-    if not processed and input.KeyCode == toggleKey then
+UserInputService.InputBegan:Connect(function(input, processed)
+    if not processed and input.KeyCode == Enum.KeyCode.F2 then
         toggleConsole()
     end
 end)
@@ -137,7 +134,3 @@ MobileToggle.MouseButton1Click:Connect(toggleConsole)
 Console:print("Console Loaded! Press F2 or tap the 📜 button to toggle.")
 
 return Console
-
-
-
-
